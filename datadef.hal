@@ -1,0 +1,133 @@
+SourceFile("halcust/level0",0);
+SourceFile("halcust/level0/Documents",0);
+SourceFile("halcust/level0/Maint",0);
+SourceFile("halcust/level0/Reports",0);
+SourceFile("halcust/level0/Tools",0);
+SourceFile("halcust/level0/WActions",0);
+SourceFile("halcust/Maint",3);
+SourceFile("halcust/WActions",3);
+SourceFile("halcust/Windows",3);
+SourceFile("halcust/latvian",3);
+SourceFile("halcust/english",3);
+SourceFile("halcust/Tools",3);
+SourceFile("halcust/RActions",3);
+SourceFile("halcust/Swedbank",3);
+
+begin
+
+RecordBegin(SwedbankImportVc,-,"");// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 28 August 2018 14:36:02
+		RecordField(NtryRef,M4Code,50,0);
+		RecordField(OwnID,M4Code,50,0);
+		RecordField(BankID,M4Code,50,0);
+		RecordField(BookgDt,M4Date,0,0);
+		RecordField(CdtDbtInd,M4Code,10,0);
+		RecordField(AmtCcy,M45Val,0,0);
+		RecordField(RvslInd,M4Int,0,0);
+		RecordField(CurncyCode,M4Code,20,0);
+		RecordField(IBAN,M4Code,50,0);
+		RecordField(Ustrd,M4Str,250,0);
+		RecordField(IPNr,M4Long,0,0);
+		RecordField(RecName,M4Str,255,0);
+		RecordField(OrgId,M4Code,50,0);
+		RecordField(PrvtId,M4Code,50,0);
+		RecordField(PayType,M4Str,50,0);
+		RecordField(OPNr,M4Long,0,0);
+		
+		MainKeyBegin(NtryRef,0);
+  	KeySegment(NtryRef);
+  	KeySegment(BankID);
+  	KeySegment(OwnID);
+  	
+  	KeyBegin(BookgDt);
+  	KeySegment(BookgDt);
+  	KeySegment(NtryRef);
+  	KeySegment(BankID);
+  	KeySegment(OwnID);
+  	
+  	KeyBegin(CdtDbtInd);
+  	KeySegment(CdtDbtInd);
+  	KeySegment(NtryRef);
+  	KeySegment(BankID);
+  	KeySegment(OwnID);
+	EndRecord;
+	
+	RecordBegin(SEBbankImportVc,-,"");// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 28 August 2018 14:35:58
+		RecordField(NtryRef,M4Code,50,0);
+		RecordField(OwnID,M4Code,50,0);
+		RecordField(BankID,M4Code,50,0);
+		RecordField(BookgDt,M4Date,0,0);
+		RecordField(CdtDbtInd,M4Code,10,0);
+		RecordField(AmtCcy,M45Val,0,0);
+		RecordField(RvslInd,M4Int,0,0);
+		RecordField(CurncyCode,M4Code,20,0);
+		RecordField(IBAN,M4Code,50,0);
+		RecordField(Ustrd,M4Str,250,0);
+		RecordField(IPNr,M4Long,0,0);
+		RecordField(RecName,M4Str,255,0);
+		RecordField(OrgId,M4Code,50,0);
+		RecordField(PrvtId,M4Code,50,0);
+		RecordField(PayType,M4Str,50,0);
+		RecordField(OPNr,M4Long,0,0);
+		
+		MainKeyBegin(NtryRef,0);
+  	KeySegment(NtryRef);
+  	KeySegment(BankID);
+  	KeySegment(OwnID);
+  	
+  	KeyBegin(BookgDt);
+  	KeySegment(BookgDt);
+  	KeySegment(NtryRef);
+  	KeySegment(BankID);
+  	KeySegment(OwnID);
+  	
+  	KeyBegin(CdtDbtInd);
+  	KeySegment(CdtDbtInd);
+  	KeySegment(NtryRef);
+  	KeySegment(BankID);
+  	KeySegment(OwnID);
+	EndRecord;
+	
+	RecordBegin(LuminorImportVc,-,"");// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 28 August 2018 14:35:55
+		RecordField(NtryRef,M4Code,50,0);
+		RecordField(OwnID,M4Code,50,0);
+		RecordField(BankID,M4Code,50,0);
+		RecordField(BookgDt,M4Date,0,0);
+		RecordField(CdtDbtInd,M4Code,10,0);
+		RecordField(AmtCcy,M45Val,0,0);
+		RecordField(RvslInd,M4Int,0,0);
+		RecordField(CurncyCode,M4Code,20,0);
+		RecordField(IBAN,M4Code,50,0);
+		RecordField(Ustrd,M4Str,250,0);
+		RecordField(IPNr,M4Long,0,0);
+		RecordField(RecName,M4Str,255,0);
+		RecordField(OrgId,M4Code,50,0);
+		RecordField(PrvtId,M4Code,50,0);
+		RecordField(PayType,M4Str,50,0);
+		RecordField(OPNr,M4Long,0,0);
+		
+		MainKeyBegin(NtryRef,0);
+  	KeySegment(NtryRef);
+  	KeySegment(BankID);
+  	KeySegment(OwnID);
+  	
+  	KeyBegin(BookgDt);
+  	KeySegment(BookgDt);
+  	KeySegment(NtryRef);
+  	KeySegment(BankID);
+  	KeySegment(OwnID);
+  	
+  	KeyBegin(CdtDbtInd);
+  	KeySegment(CdtDbtInd);
+  	KeySegment(NtryRef);
+  	KeySegment(BankID);
+  	KeySegment(OwnID);
+	EndRecord;
+  
+  BlockBegin(BankImportSetBlock,-,"");// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 28 August 2018 14:35:53
+		RecordField(ImpPaym,M4Int,0,0);
+		RecordField(ImpPaymOrd,M4Int,0,0);
+		RecordField(ImpCharges,M4Int,0,0);
+	EndBlock;
+	
+  return;
+end;

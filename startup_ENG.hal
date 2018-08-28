@@ -1,0 +1,13 @@
+
+
+
+event startup
+begin
+  Real h,v,l,vs;
+	
+  Import("Amanda - SEB Bank import Statement",SEBBankImportSTIClass,SEBBankImportSTIn,modSL);// Edit ************************** BPI Ukraine - KramarAlexandr - Thursday, 23 August 2018 14:22:10
+  Setting("Amanda - Banking Statement Import settings",BankImportSetTClass,modSL);// Edit ************************** BPI Ukraine - KramarAlexandr - Wednesday, 13 June 2018 10:16:15
+	Setting("Amanda - SEB Bank import Statement",SEBbankImportLClass,modSL);// Edit ************************** BPI Ukraine - KramarAlexandr - Thursday, 23 August 2018 14:22:19
+
+  return;
+end;
