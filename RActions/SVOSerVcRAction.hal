@@ -1,0 +1,22 @@
+//<halrule>server-only</halrule>
+global
+function LongInt SVOSerVcRecordCheck(var record SVOSerVc SVOSerr,record SVOSerVc SVOSer2r,LongInt stat,LongInt long4)
+begin
+  LongInt res;
+  record INVc INr;
+
+  res = 0;
+  res = inner.SVOSerVcRecordCheck(SVOSerr,SVOSer2r,stat,long4);
+  if(nonblank(SVOSerr.ItemCode))then begin
+  	INr.Code = SVOSerr.ItemCode;
+  	if(readfirstmain(INr,1,true))then begin
+  		if(nonblank(INr.PLCode))then begin
+  			SVOSerr.PLCode = INr.PLCode;
+  		end;
+  	end;
+  end;
+  
+LSVOSerVcRecordCheck:
+  SVOSerVcRecordCheck = res;
+  return;
+end;

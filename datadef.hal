@@ -129,5 +129,62 @@ RecordBegin(SwedbankImportVc,-,"");// Edit ************************** BPI Ukrain
 		RecordField(ImpCharges,M4Int,0,0);
 	EndBlock;
 	
+	RecordAddBegin(IVVc,"IVVc_Custom");// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. о 14:39:23
+		ChangeMatrixField(Price,M4Val,0,0);
+	endrecordadd;
+	
+	RecordAddBegin(SVOSerVc,"SVOSerVc_Custom");// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. о 14:39:23
+		RecordField(PLCode,M4Code,20,0);
+	Endrecordadd;
+	
+	RecordAddBegin(WSVc,"WSVc_Custom");// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. о 14:39:23
+		ArrayField(sTime,M4Time,0,0);
+		ArrayField(eTime,M4Time,0,0);
+	Endrecordadd;
+	
+	RecordAddBegin(INVc,"INVc_Custom");// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. о 14:39:23
+		RecordField(PLCode,M4Code,20,0);
+	Endrecordadd;
+		
+	/*BlockBegin(RoundBlock,-,"roundoff3");
+  CacheBlockInClient;
+  NewAutosyncBlock(kSyncDirectionToClient);
+  RecordField(RndTotal,M4Int,0,0);
+  RecordField(RndVat,M4Int,0,0);
+  RecordField(RndFIFO,M4Int,0,0);
+  RecordField(Discount,M4Int,0,0);
+  RecordField(VATCalcWay,M4Int,0,0);
+  
+  RecordField(RndDefaultDecs,M4Int,0,0);
+  RecordField(RndDefaultStep,M4Set,398,0);
+  RecordField(RndDefaultMode,M4Set,399,0);
+  RecordField(RndDefaultDirec,M4Set,400,0);
+  RecordField(RndDefaultCurDecs,M4Int,0,0);
+  RecordField(RndDefaultCurStep,M4Set,398,0);
+  RecordField(RndDefaultCurMode,M4Set,399,0);
+  RecordField(RndDefaultCurDirec,M4Set,400,0);
+  RecordField(RndTotalDecs,M4Int,0,0);
+  RecordField(RndTotalStep,M4Set,398,0);
+  RecordField(RndTotalMode,M4Set,399,0);
+  RecordField(RndTotalDirec,M4Set,400,0);
+  RecordField(RndVATDecs,M4Int,0,0);
+  RecordField(RndVATStep,M4Set,398,0);
+  RecordField(RndVATMode,M4Set,399,0);
+  RecordField(RndVATDirec,M4Set,400,0);
+  RecordField(RndCostDecs,M4Int,0,0);
+  RecordField(RndCostStep,M4Set,398,0);
+  RecordField(RndCostMode,M4Set,399,0);
+  RecordField(RndCostDirec,M4Set,400,0);
+  RecordField(RndRowsumDecs,M4Int,0,0);
+  RecordField(RndRowsumStep,M4Set,398,0);
+  RecordField(RndRowsumMode,M4Set,399,0);
+  RecordField(RndRowsumDirec,M4Set,400,0);
+  
+  RecordField(RndPORowsumDecs,M4Int,0,0);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. о 13:37:22
+  RecordField(RndPORowsumStep,M4Set,398,0);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. о 13:37:26
+  RecordField(RndPORowsumMode,M4Set,399,0);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. о 13:37:28
+  RecordField(RndPORowsumDirec,M4Set,400,0);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. о 13:37:31
+  EndBlock;*/
+	
   return;
 end;

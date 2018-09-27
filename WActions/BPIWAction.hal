@@ -1,0 +1,134 @@
+remote inner procedure IVVc_PastePriceList(var record IVVc);
+remote inner procedure ORVc_PastePriceList(var record ORVc);
+remote inner procedure QTDUpdatePrices(var record QTVc,Boolean);
+
+function Boolean IVDClassArtCodeEFAfter(Integer wn,Integer rownr,Integer changed)
+begin  
+  record IVVc IVr;
+  row IVVc IVrw;
+  record INVc INr;
+  
+  if (changed!=0) then begin
+    GetWindowRecord(wn,IVr);
+    if(rownr>-1)then begin
+    	matrowget(IVr,rownr,IVrw);
+    	if(IVrw.stp==1)then begin
+    		if(nonblank(IVrw.ArtCode))then begin
+    			INr.Code = IVrw.ArtCode;
+    			if(readfirstmain(INr,1,true))then begin
+    				if(nonblank(INr.PLCode))then begin
+    					IVr.PriceList = INr.PLCode;
+    					IVVc_PastePriceList(IVr);
+    					putwindowrecord(wn,IVr);
+    				end;
+    			end;
+    		end;
+    	end;
+    end;
+  end;
+  IVDClassArtCodeEFAfter = true;
+  return;
+end;
+
+function Boolean ORDClassArtCodeEFAfter(Integer wn,Integer rownr,Integer changed)
+begin  
+  record ORVc ORr;
+  row ORVc ORrw;
+  record INVc INr;
+  
+  if (changed!=0) then begin
+    GetWindowRecord(wn,ORr);
+    if(rownr>-1)then begin
+    	matrowget(ORr,rownr,ORrw);
+    	if(ORrw.stp==1)then begin
+    		if(nonblank(ORrw.ArtCode))then begin
+    			INr.Code = ORrw.ArtCode;
+    			if(readfirstmain(INr,1,true))then begin
+    				if(nonblank(INr.PLCode))then begin
+    					ORr.PriceList = INr.PLCode;
+    					ORVc_PastePriceList(ORr);
+    					putwindowrecord(wn,ORr);
+    				end;
+    			end;
+    		end;
+    	end;
+    end;
+  end;
+  ORDClassArtCodeEFAfter = true;
+  return;
+end;
+
+
+function Boolean QTDClassArtCodeEFAfter(Integer wn,Integer rownr,Integer changed)
+begin  
+  record QTVc QTr;
+  row QTVc QTrw;
+  record INVc INr;
+  record PLDefVc PLDefr;
+  
+  if (changed!=0) then begin
+    GetWindowRecord(wn,QTr);
+    if(rownr>-1)then begin
+    	matrowget(QTr,rownr,QTrw);
+    	if(QTrw.stp==1)then begin
+    		if(nonblank(QTrw.ArtCode))then begin
+    			INr.Code = QTrw.ArtCode;
+    			if(readfirstmain(INr,1,true))then begin
+    				if(nonblank(INr.PLCode))then begin
+    					QTr.PriceList = INr.PLCode;
+    					PLDefR.Code = QTr.PriceList;
+    					if (ReadFirstMain(PLDefR,1,true)) then begin
+								QTr.InclVAT = PLDefR.InclVAT;
+							end;
+    					QTDUpdatePrices(QTr,false);
+    					putwindowrecord(wn,QTr);
+    				end;
+    			end;
+    		end;
+    	end;
+    end;
+  end;
+  QTDClassArtCodeEFAfter = true;
+  return;
+end;
+
+global
+function Boolean IVDClassAfterEditField(Integer wn,string fieldname,Integer fn, Integer rownr,Integer changed)
+BEGIN
+  Boolean res;
+  
+  switch (fieldname) begin
+    case "ArtCode": res = IVDClassArtCodeEFAfter(wn,rownr,changed);
+  end;
+  res = inner.IVDClassAfterEditField(wn,fieldname,fn,rownr,changed);
+  IVDClassAfterEditField = res;
+  RETURN;
+END;
+
+
+global
+function Boolean ORDClassAfterEditField(Integer wn,string fieldname,Integer fn, Integer rownr,Integer changed)
+BEGIN
+  Boolean res;
+  
+  switch (fieldname) begin
+    case "ArtCode": res = ORDClassArtCodeEFAfter(wn,rownr,changed);
+  end;
+  res = inner.ORDClassAfterEditField(wn,fieldname,fn,rownr,changed);
+  ORDClassAfterEditField = res;
+  RETURN;
+END;
+
+
+global
+function Boolean QTDClassAfterEditField(Integer wn,string fieldname,Integer fn, Integer rownr,Integer changed)
+BEGIN
+  Boolean res;
+  
+  switch (fieldname) begin
+    case "ArtCode": res = QTDClassArtCodeEFAfter(wn,rownr,changed);
+  end;
+  res = inner.QTDClassAfterEditField(wn,fieldname,fn,rownr,changed);
+  QTDClassAfterEditField = res;
+  RETURN;
+END;

@@ -1,3 +1,5 @@
+external inner function Boolean HasHideCostPrice();
+external inner function Boolean IsEnterprise();
 
 window SwedBankImportSTIClass:1// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 28 August 2018 14:38:35
   wtag("language","ENG"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
@@ -241,3 +243,98 @@ begin
   EndWindow;
 
 end;
+/*
+window RoundTClass:2
+  wtag("language","ENG"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin
+  real f,h,v,vm,vs;
+  WindowBegin("Round Off",RoundTClass,CGSbl,RoundType);
+  SetBlid(RoundBlock);
+  SetWRect(64,80,909,580);
+  v = 20; vs = 24; h = 170; f = 100;
+
+  ButtonFrame(h=40,vm=v,220,6,"Default");
+  EditField(h+70,v+=2,60,"Decimals",Normal,RndDefaultDecs,true,0);
+  StaticText(h+68,(v+=vs) + 13,"Step",true);
+  DropDownMenu(h+70,v,h+210,"RndDefaultStep",398);
+  StaticText(h+68,(v+=vs) + 13,"Mode",true);
+  DropDownMenu(h+70,v,h+210,"RndDefaultMode",399);
+  StaticText(h+68,(v+=vs) + 13,"Direction",true);
+  DropDownMenu(h+70,v,h+210,"RndDefaultDirec",400);
+
+  v = vm;
+  ButtonFrame(h=300,vm=v,220,6,"Default for Calculated Values");
+  EditField(h+70,v+=2,60,"Decimals",Normal,RndDefaultCurDecs,true,0);
+  StaticText(h+68,(v+=vs) + 13,"Step",true);
+  DropDownMenu(h+70,v,h+210,"RndDefaultCurStep",398);
+  StaticText(h+68,(v+=vs) + 13,"Mode",true);
+  DropDownMenu(h+70,v,h+210,"RndDefaultCurMode",399);
+  StaticText(h+68,(v+=vs) + 13,"Direction",true);
+  DropDownMenu(h+70,v,h+210,"RndDefaultCurDirec",400);
+  v = v + 60;
+
+  ButtonFrame(h=40,vm=v,220,6,"Total");
+  EditField(h+70,v+=2,60,"Decimals",Normal,RndTotalDecs,true,0);
+  StaticText(h+68,(v+=vs) + 13,"Step",true);
+  DropDownMenu(h+70,v,h+210,"RndTotalStep",398);
+  StaticText(h+68,(v+=vs) + 13,"Mode",true);
+  DropDownMenu(h+70,v,h+210,"RndTotalMode",399);
+  StaticText(h+68,(v+=vs) + 13,"Direction",true);
+  DropDownMenu(h+70,v,h+210,"RndTotalDirec",400);
+
+  v = vm;
+  ButtonFrame(h=300,vm=v,220,6,"#VAT#");
+  EditField(h+70,v+=2,60,"Decimals",Normal,RndVATDecs,true,0);
+  StaticText(h+68,(v+=vs) + 13,"Step",true);
+  DropDownMenu(h+70,v,h+210,"RndVATStep",398);
+  StaticText(h+68,(v+=vs) + 13,"Mode",true);
+  DropDownMenu(h+70,v,h+210,"RndVATMode",399);
+  StaticText(h+68,(v+=vs) + 13,"Direction",true);
+  DropDownMenu(h+70,v,h+210,"RndVATDirec",400);
+  v = v + 60;
+  vm = v;
+  if (HasHideCostPrice==false) or (IsEnterprise) then begin
+    ButtonFrame(h=40,v,220,6,"Cost Price");
+    EditField(h+70,v+=2,60,"Decimals",Normal,RndCostDecs,true,0);
+    StaticText(h+68,(v+=vs) + 13,"Step",true);
+    DropDownMenu(h+70,v,h+210,"RndCostStep",398);
+    StaticText(h+68,(v+=vs) + 13,"Mode",true);
+    DropDownMenu(h+70,v,h+210,"RndCostMode",399);
+    StaticText(h+68,(v+=vs) + 13,"Direction",true);
+    DropDownMenu(h+70,v,h+210,"RndCostDirec",400);
+  end;
+
+  ButtonFrame(h=300,v=vm,220,6,"Row Sum");
+  EditField(h+70,v+=2,60,"Decimals",Normal,RndRowsumDecs,true,0);
+  StaticText(h+68,(v+=vs) + 13,"Step",true);
+  DropDownMenu(h+70,v,h+210,"RndRowsumStep",398);
+  StaticText(h+68,(v+=vs) + 13,"Mode",true);
+  DropDownMenu(h+70,v,h+210,"RndRowsumMode",399);
+  StaticText(h+68,(v+=vs) + 13,"Direction",true);
+  DropDownMenu(h+70,v,h+210,"RndRowsumDirec",400);
+
+  v = v + 60;
+
+  ButtonFrame(h=40,vm=v,150,2,"Discount Calculation on");
+  RadioButton(h,v,0,0,"Row Sum",Discount);
+  RadioButton(h,v+=16,1,0,"Unit Price",Discount);
+
+  v = vm;
+  ButtonFrame(h=300,vm=v,150,2,"#VAT# Calculation");
+  RadioButton(h,v,0,0,"Per #VAT# Code",VATCalcWay);
+  RadioButton(h,v+=16,1,0,"Per Row",VATCalcWay);
+  
+  
+  v = 20;
+  ButtonFrame(h=600,vm=v,220,6,"Default - Purchases Row");// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. î 13:38:33
+  EditField(h+70,v+=2,60,"Decimals",Normal,RndPORowsumDecs,true,0);
+  StaticText(h+68,(v+=vs) + 13,"Step",true);
+  DropDownMenu(h+70,v,h+210,"RndPORowsumStep",398);
+  StaticText(h+68,(v+=vs) + 13,"Mode",true);
+  DropDownMenu(h+70,v,h+210,"RndPORowsumMode",399);
+  StaticText(h+68,(v+=vs) + 13,"Direction",true);
+  DropDownMenu(h+70,v,h+210,"RndPORowsumDirec",400);
+  v = v + 60;
+
+  EndWindow;
+end;*/
