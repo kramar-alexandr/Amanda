@@ -24,7 +24,6 @@ external procedure HTCustClass(string,var string);
 external procedure HTCustClassType(string,var string);
 external function Boolean SetInSet2(string,string);
 external procedure ItemClassTypef(string,string,var Boolean);
-external function Boolean BPIFindPOQantity2(record INVc,record ItemStatusVc,Boolean,string,record PIVc,var val,var val,var val,val,Boolean,Boolean,Boolean,Boolean,var val);
 
 
 global
@@ -223,14 +222,43 @@ BEGIN
 END;
 
 global
-function Boolean FindPOQantity2(record INVc INp,record ItemStatusVc ISp,Boolean varf,string location,record PIVc PIp,var val t1p,var val t2p,var val minlevel,val predsales,Boolean defic,Boolean checkpif,Boolean checkminpoqty,Boolean okpoonly)
+function Boolean FindPOQantity2(record INVc INp,record ItemStatusVc ISp,Boolean varf,string location,record PIVc PIp,var val t1p,var val t2p,var val minlevel,val predsales,Boolean defic,Boolean checkpif,Boolean checkminpoqty,Boolean okpoonly, var val wsqty)//BPI
 begin
 //try to make same as FindPOQty2
   Boolean res;
   val t;
   record POSettingBlock POb;
   Integer it;
-
+  
+  record WSVc WSr;//BPI
+	row WSVc WSrw;//BPI
+	boolean TrHs,testf;//BPI
+	integer i,rwcnt;//BPI
+	
+	//BPI start
+	wsqty = 0;
+	WSr.OKFlag = 0;
+	WSr.Location = location;
+	TrHs = true;
+	while(loopkey("LocOK",WSr,2,TrHs))begin
+		testf = true;
+		if(WSr.OKFlag!=0)then begin testf = false; TrHs = false; end;
+		if(nonblank(location))then begin
+			if(WSr.Location!=location)then begin testf = false; TrHs = false; end;
+		end;
+		
+		if(testf)then begin
+			rwcnt = matrowcnt(WSr);
+			For(i=0;i<rwcnt;i=i+1) begin
+	  		matrowget(WSr,i,WSrw);
+	  		if(WSrw.ArtCode==INp.Code)then begin
+	  			wsqty = wsqty + WSrw.Quant;
+	  		end;
+			end; 
+		end;
+	end;	
+	//BPI end
+	
   BlockLoad(POb);
   minlevel = blankval;  
   FindMinLevel(minlevel,location,INp.Code,varf);
@@ -240,9 +268,9 @@ begin
 
   GetStockValue(INp.Code,location,ISp);
   if (okpoonly) then begin
-    t1p = ISp.Instock - ISp.OrddOut + ISp.POQty - ISp.ProdOrd;
+    t1p = ISp.Instock - ISp.OrddOut + ISp.POQty - ISp.ProdOrd - wsqty;//BPI
   end else begin
-    t1p = ISp.Instock - ISp.OrddOut + ISp.POUnOKQty - ISp.ProdOrd;
+    t1p = ISp.Instock - ISp.OrddOut + ISp.POUnOKQty - ISp.ProdOrd - wsqty;//BPI
   end;
   t2p = 0;
   t   = 0;
@@ -255,10 +283,13 @@ begin
   if (PIp.ItemCode=="") then begin
     res = false;
   end;
+  
   if (res) and (checkpif) then begin
     if (t2p>0) then begin
       t = t2p;
+      
       if (PIp.NormPOQty!=0) and (defic==false) then begin
+      	logtext(0,INp.Code & " " & res & " " & checkpif & " " & defic);
         if (PIp.NormPOQty>t2p) then begin
           t2p = PIp.NormPOQty;
         end;
@@ -269,6 +300,7 @@ begin
           t2p = t*PIp.NormPOQty;
         end;
       end;
+      logtext(0,INp.Code & " checkminpoqty " & checkminpoqty);
       if (checkminpoqty) then begin
         if (PIp.MinPOQty!=0) then begin
           if (PIp.MinPOQty>t2p) then begin
@@ -287,7 +319,9 @@ end;
 global
 function Boolean FindPOQantity(record INVc INp,record ItemStatusVc ISp,Boolean varf,string location,record PIVc PIp,var val t1p,var val t2p,var val minlevel,val predsales,Boolean defic,Boolean checkpif,Boolean checkminpoqty)
 begin
-  FindPOQantity = FindPOQantity2(INp,ISp,varf,location,PIp,t1p,t2p,minlevel,predsales,defic,checkpif,checkminpoqty,false);
+	val wsqty;//BPI
+	
+  FindPOQantity = FindPOQantity2(INp,ISp,varf,location,PIp,t1p,t2p,minlevel,predsales,defic,checkpif,checkminpoqty,false,wsqty);//WSQty
   return;
 end;
 
@@ -321,7 +355,7 @@ begin
       end;
     end;
   end;
-  pifound = BPIFindPOQantity2(INr,ISr,varf,RepSpec.FirstAcc,PIr,t1,t2,minlevel,0,true,RepSpec.flags[5]!=0,false,RepSpec.flags[7]!=0,wsqty);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. î 13:10:26
+  pifound = FindPOQantity2(INr,ISr,varf,RepSpec.FirstAcc,PIr,t1,t2,minlevel,0,true,RepSpec.flags[5]!=0,false,RepSpec.flags[7]!=0,wsqty);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. î 13:10:26
   if ((RepSpec.flags[3]==0) or (t1<>0)) then begin
     if (RepSpec.flags[4]==1) then  begin
       if (t2==0) then begin 
