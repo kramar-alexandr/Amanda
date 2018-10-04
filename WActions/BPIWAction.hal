@@ -7,6 +7,7 @@ begin
   record IVVc IVr;
   row IVVc IVrw;
   record INVc INr;
+  record PLDefVc PLDefR;
   
   if (changed!=0) then begin
     GetWindowRecord(wn,IVr);
@@ -18,7 +19,10 @@ begin
     			if(readfirstmain(INr,1,true))then begin
     				if(nonblank(INr.PLCode))then begin
     					IVr.PriceList = INr.PLCode;
-    					IVVc_PastePriceList(IVr);
+    					PLDefR.Code = IVr.PriceList;
+							if (ReadFirstMain(PLDefR,1,true)) then begin
+								IVr.InclVAT = PLDefR.InclVAT;
+							end;
     					putwindowrecord(wn,IVr);
     				end;
     			end;
@@ -35,6 +39,7 @@ begin
   record ORVc ORr;
   row ORVc ORrw;
   record INVc INr;
+  record PLDefVc PLDefR;
   
   if (changed!=0) then begin
     GetWindowRecord(wn,ORr);
@@ -46,7 +51,10 @@ begin
     			if(readfirstmain(INr,1,true))then begin
     				if(nonblank(INr.PLCode))then begin
     					ORr.PriceList = INr.PLCode;
-    					ORVc_PastePriceList(ORr);
+    					PLDefR.Code = ORr.PriceList;
+							if (ReadFirstMain(PLDefR,1,true)) then begin
+								ORr.InclVAT = PLDefR.InclVAT;
+							end;
     					putwindowrecord(wn,ORr);
     				end;
     			end;
@@ -80,7 +88,7 @@ begin
     					if (ReadFirstMain(PLDefR,1,true)) then begin
 								QTr.InclVAT = PLDefR.InclVAT;
 							end;
-    					QTDUpdatePrices(QTr,false);
+    					//QTDUpdatePrices(QTr,false);
     					putwindowrecord(wn,QTr);
     				end;
     			end;
