@@ -127,6 +127,12 @@ RecordBegin(SwedbankImportVc,-,"");// Edit ************************** BPI Ukrain
 		RecordField(ImpPaym,M4Int,0,0);
 		RecordField(ImpPaymOrd,M4Int,0,0);
 		RecordField(ImpCharges,M4Int,0,0);
+		RecordField(DefPayModeSW,M4Code,5,0);
+		RecordField(DefPayModeSEB,M4Code,5,0);
+		RecordField(DefPayModeLUM,M4Code,5,0);
+		RecordField(DefPayModeSIA,M4Code,5,0);
+		RecordField(DefSearchInv,M4Int,0,0);
+		RecordField(InvFIFO,M4Int,0,0);
 	EndBlock;
 	
 	RecordAddBegin(IVVc,"IVVc_Custom");// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. о 14:39:23
