@@ -191,6 +191,57 @@ RecordBegin(SwedbankImportVc,-,"");// Edit ************************** BPI Ukrain
   RecordField(RndPORowsumMode,M4Set,399,0);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. о 13:37:28
   RecordField(RndPORowsumDirec,M4Set,400,0);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. о 13:37:31
   EndBlock;*/
+  
+  RecordBegin(ActSeqVc,-,"");
+  RecordField(ActType,M4Code,5,ActTypeVc);
+  RecordField(ActResult,M4Code,5,ActTypeVc);
+  RecordField(NextType,M4Code,5,ActTypeVc);
+  RecordField(NextComment,M4Str,60,0);
+  RecordField(NrOfDays,M4Long,0,0);
+  RecordField(Person,M4Code,10,UserVc);
+  RecordField(NrOfHours,M4Long,0,0);
+  RecordField(NewResState,M4Code,5,0);
+  RecordField(TodoFlag,M4Int,0,0);
+  RecordField(CopyRLink,M4Int,0,0);
+  RecordField(CreateVc,M4Int,0,0);
+  RecordField(RequireSerialNr,M4Int,0,0);
+  RecordField(AlarmType,M4Int,0,0);
+  RecordField(AlarmWhen,M4Int,0,0);
+  RecordField(AlarmUnits,M4Int,0,0);
+  RecordField(PrioLevel,M4Long,0,0);
+  RecordField(SymbNr,M4Int,0,0);
+  RecordField(SetPerson,M4Set,438,0);
+  
+  MainKeyBegin(ActType,0);
+  KeySegment(ActType);
+  KeySegment(ActResult);
+  KeySegment(NextType);// Edit ************************** BPI Ukraine - KramarAlexandr - Friday, 12 October 2018 12:58:44
+  KeyBegin(ActResult);
+  KeySegment(ActResult);
+  KeySegment(ActType);
+  KeySegment(NextType);// Edit ************************** BPI Ukraine - KramarAlexandr - Friday, 12 October 2018 12:58:44
+  KeyBegin(NextType);
+  KeySegment(NextType);
+  KeySegment(ActType);
+  KeySegment(ActResult);
+  KeyBegin(NextComment);
+  KeySegment(NextComment);
+  KeySegment(ActType);
+  KeySegment(ActResult);
+  KeySegment(NextType);// Edit ************************** BPI Ukraine - KramarAlexandr - Friday, 12 October 2018 12:58:44
+  EndRecord;
+  
+  RecordBegin(ActExportVc,-,"");
+  RecordField(ActSerNr,M4Long,0,ActVc);
+  RecordField(Person,M4Code,10,UserVc);
+  RecordField(iCalUID,M4Str,40,0);
+  RecordField(LastExportDate,M4Date,0,0);
+  MainKeyBegin(ActPers,0);
+  KeySegment(ActSerNr);
+  KeySegment(Person);
+  KeyBegin(iCalUID);
+  KeySegment(iCalUID);
+  EndRecord;
 	
   return;
 end;
