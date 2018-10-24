@@ -1,3 +1,4 @@
+//<halrule>server-only</halrule>
 external function Boolean HasContactClassification();
 external function Boolean HasMultiCurrency();
 external procedure CurValToOtherCur(Date,string,val,string,var val,roundmode);
