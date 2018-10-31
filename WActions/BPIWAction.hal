@@ -140,3 +140,39 @@ BEGIN
   QTDClassAfterEditField = res;
   RETURN;
 END;
+
+global
+function Boolean QTDCLassOnOpenWindow(Integer wn)
+begin
+  record QTVc QTr;
+	boolean res;
+	record Attach2Vc Attachr;
+	record RLinkVc RLr;
+	record RcVc RepSpec;
+	string 255 cstr,tstr;
+	integer nwn;
+	
+	res = inner.QTDCLassOnOpenWindow(wn);
+	if(windowstate(wn)==Rs_normal)then begin
+		GetWindowRecord(wn,QTr);
+		if(ReadRecordLink(QTr,1,Attachr,RLr))then begin
+			cstr = BuildRecordIdStr(QTr,currentcompany);
+			nwn = OpenWindow("ArchiveWClass",0,wn,cstr,"",RepSpec);
+			//SetWindownamearg(nwn,"QTVc " & QTr.SerNr);
+			SetWindowTitle(nwn);
+		end;
+	end;
+
+  QTDCLassOnOpenWindow = res;
+  return;
+end;
+
+/*global
+function Boolean ArchiveWClassOnOpenWindow(Integer wn)
+begin
+  
+  messagebox(0,getwindowsubset(wn));
+  
+  ArchiveWClassOnOpenWindow = true;
+  return;
+end;*/

@@ -1,0 +1,93 @@
+//<halrule>server-only</halrule>
+
+procedure WebOutHeader(record ORVc ORr)
+begin
+	area adile;
+	
+		logtext(0,"WebOutHeader");
+	addtexttoarea("</pre>",adile);
+	addfiletoarea("webcust/header.html",adile,0);
+	weboutstring("<pre>");
+	weboutarea(adile);
+	
+	
+return;
+end;
+
+procedure WebOutItems(record ORVc ORr,integer i)
+begin
+	area adile;
+	
+	logtext(0,"WebOutItems");
+	addtexttoarea("</pre>",adile);
+	addfiletoarea("webcust/item.html",adile,0);
+	weboutstring("<pre>");
+	weboutarea(adile);
+return;
+end;
+
+procedure WebOutFooter(record ORVc ORr)
+begin
+	area adile;
+	logtext(0,"WebOutFooter");
+	addtexttoarea("</pre>",adile);
+	addfiletoarea("webcust/footer.html",adile,0);
+	weboutstring("<pre>");
+	weboutarea(adile);
+	
+return;
+end;
+
+procedure WebOutFooterTotal(record ORVc ORr)
+begin
+	area adile;
+	logtext(0,"WebOutFooter");
+	addtexttoarea("</pre>",adile);
+	addfiletoarea("webcust/footerTotal.html",adile,0);
+	weboutstring("<pre>");
+	weboutarea(adile);
+	
+return;
+end;
+
+
+global webpublic procedure WebPrintOrder()
+begin
+	longint ordernr;
+	record ORVc ORr;
+	integer i,mtrw;
+	
+	ordernr = stringtolongint(WebGetArg("ordernr"));
+	
+	if(ordernr>0)then begin
+		ORr.SerNr = ordernr;
+		if(readfirstmain(ORr,1,true))then begin
+			weboutstring("<HTML>");weboutnl;
+				weboutstring("<HEAD>");weboutnl;
+					weboutstring("<META http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">");weboutnl;
+					weboutstring("<META http-equiv=\"X-UA-Compatible\" content=\"IE=8\">");weboutnl;
+					weboutstring("<TITLE>bcl_522090113.htm</TITLE>");weboutnl;
+					weboutstring("<link rel=\"stylesheet\" href=\"style.css\">");weboutnl;
+				
+				weboutstring("</HEAD>");weboutnl;
+			weboutstring("<BODY>");weboutnl;
+			
+			mtrw = matrowcnt(ORr);
+			For(i=0;i<mtrw;i=i+1) begin
+				
+				weboutstring("<DIV id=\"p1dimg1\">");weboutnl;
+					//WebOutHeader(ORr);weboutnl;
+					WebOutItems(ORr,i);weboutnl;
+					//WebOutFooter(ORr);weboutnl;
+				weboutstring("</DIV>");weboutnl;
+			end; 
+			
+			WebOutFooterTotal(ORr);
+			
+			weboutstring("</BODY>");weboutnl;
+			weboutstring("</HTML>");weboutnl;
+		end;
+	end;
+	
+return;
+end;
