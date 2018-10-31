@@ -343,3 +343,13 @@ begin
 
   EndWindow;
 end;*/
+
+
+window BPIActSecUserSClass:2
+  wtag("language","ENG"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin
+  WindowBegin("Paste classif",BPIActSecUserSClass,CGother,RcType);
+  SetWRect(240,80,500,298);
+  StringList(9,9,200,209);
+  EndWindow;
+end;

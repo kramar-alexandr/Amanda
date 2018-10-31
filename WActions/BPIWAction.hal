@@ -1,6 +1,7 @@
 remote inner procedure IVVc_PastePriceList(var record IVVc);
 remote inner procedure ORVc_PastePriceList(var record ORVc);
 remote inner procedure QTDUpdatePrices(var record QTVc,Boolean);
+external inner procedure PasteFromSysList(Integer ,Integer);
 
 function Boolean IVDClassArtCodeEFAfter(Integer wn,Integer rownr,Integer changed)
 begin  
@@ -132,7 +133,7 @@ global
 function Boolean QTDClassAfterEditField(Integer wn,string fieldname,Integer fn, Integer rownr,Integer changed)
 BEGIN
   Boolean res;
-  
+
   switch (fieldname) begin
     case "ArtCode": res = QTDClassArtCodeEFAfter(wn,rownr,changed);
   end;
@@ -176,3 +177,29 @@ begin
   ArchiveWClassOnOpenWindow = true;
   return;
 end;*/
+
+
+
+global 
+function Boolean BPIActSecUserSClassOnOpenWindow(Integer wn)
+BEGIN
+  LongInt i,mwn;
+  
+  mwn = MotherWindow(wn);
+	if(mwn!=-1)then begin
+		SetListString(wn,19,"0  Specified Person",false);
+		SetListString(wn,26,"1  From Originating Record",false);
+		SetListString(wn,13,"2  Supervisor",false);
+	end;
+ 
+  BPIActSecUserSClassOnOpenWindow = true;
+  RETURN;
+END; 
+
+global
+function Boolean BPIActSecUserSClassOnOKWindow(Integer wn)
+begin
+  PasteFromSysList(wn,10);
+  BPIActSecUserSClassOnOKWindow = false;
+  return;
+end;

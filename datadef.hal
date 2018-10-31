@@ -210,7 +210,7 @@ RecordBegin(SwedbankImportVc,-,"");// Edit ************************** BPI Ukrain
   RecordField(AlarmUnits,M4Int,0,0);
   RecordField(PrioLevel,M4Long,0,0);
   RecordField(SymbNr,M4Int,0,0);
-  RecordField(SetPerson,M4Set,438,0);
+  RecordField(SetPerson,M4Set,1438,0);
   
   MainKeyBegin(ActType,0);
   KeySegment(ActType);

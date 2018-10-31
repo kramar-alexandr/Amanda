@@ -1,6 +1,3 @@
-
-
-
 event startup
 begin
   Real h,v,l,vs;
@@ -10,6 +7,12 @@ begin
 	Setting("Amanda - SEB Bank import Statement",SEBbankImportLClass,modSL);// Edit ************************** BPI Ukraine - KramarAlexandr - Thursday, 23 August 2018 14:22:19
 	
 	SString(31000,"Don't have price for this item");// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. о 15:06:08
+	
+	SetBegin(1438);// Edit ************************** BPI Ukraine - KramarAlexandr - Wednesday, 31 October 2018 16:45:00
+  SetText(0,"Specified Person");
+  SetText(1,"From Originating Record");
+  SetText(2,"Supervisor");
+  EndSet;
 	
   return;
 end;

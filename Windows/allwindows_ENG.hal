@@ -993,3 +993,4 @@ begin
   SpecialMenu("Recipe",' ',2,"RecFromINDsm");
   EndWindow;
 end;
+

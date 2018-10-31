@@ -119,6 +119,14 @@ begin
 									newActr.MainPersons = Actp.MainPersons;
 								end;
 							end;
+						case 2://Supervisor// Edit ************************** BPI Ukraine - KramarAlexandr - Wednesday, 31 October 2018 16:09:06
+							newActr.MainPersons = Actp.Supervisor;
+							if(blank(newActr.MainPersons))then begin
+								newActr.MainPersons = ActSeqr.Person;
+							end;
+							if(blank(newActr.MainPersons))then begin
+								newActr.MainPersons = Actp.MainPersons;
+							end;
 						otherwise
 							if (nonblank(ActSeqr.Person)) then begin
 								newActr.MainPersons = ActSeqr.Person;
