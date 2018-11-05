@@ -152,6 +152,7 @@ begin
 	record RcVc RepSpec;
 	string 255 cstr,tstr;
 	integer nwn;
+	record ActVc Actr;
 	
 	res = inner.QTDCLassOnOpenWindow(wn);
 	if(windowstate(wn)==Rs_normal)then begin
@@ -159,6 +160,12 @@ begin
 		if(ReadRecordLink(QTr,1,Attachr,RLr))then begin
 			cstr = BuildRecordIdStr(QTr,currentcompany);
 			nwn = OpenWindow("ArchiveWClass",0,wn,cstr,"",RepSpec);
+			//SetWindownamearg(nwn,"QTVc " & QTr.SerNr);
+			SetWindowTitle(nwn);
+		end;
+		if(ReadRecordLink(QTr,1,Actr,RLr))then begin
+			cstr = BuildRecordIdStr(QTr,currentcompany);
+			nwn = OpenWindow("WorkflowWClass",0,wn,cstr,"",RepSpec);
 			//SetWindownamearg(nwn,"QTVc " & QTr.SerNr);
 			SetWindowTitle(nwn);
 		end;
