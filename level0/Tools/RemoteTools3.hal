@@ -474,8 +474,7 @@ BEGIN
 	record ActVc Actr;// Edit ************************** BPI Ukraine - KramarAlexandr - Wednesday, 7 November 2018 10:16:33
 	record RLinkVc RLr;// Edit ************************** BPI Ukraine - KramarAlexandr - Wednesday, 7 November 2018 10:16:34
 	integer filenr;  // Edit ************************** BPI Ukraine - KramarAlexandr - Wednesday, 7 November 2018 10:16:34
-     
-      
+ 
   if (ReadFirstMain(POp,0,true)) then begin end;  
   if (POp.OrderType!=kOrderTypeNormal) then begin 
     res = 22075;
@@ -506,6 +505,7 @@ BEGIN
       CreateRecordLink(PUp,CurrentCompany,POp,CurrentCompany);  
       CreateRecordLink(POp,CurrentCompany,PUp,CurrentCompany);  
     end;
+    
     // Edit Start ---------------------------------------------- Edit Start
 	//Wednesday, 7 November 2018 10:17:02
 	

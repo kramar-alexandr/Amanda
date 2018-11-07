@@ -1189,7 +1189,7 @@ BEGIN
   string 255 tstr;
   record QTVc oldQTr;
   
-  res = 1;
+  res = 40301;
   if (ReadFirstMain(QTp,0,true)) then begin end;  
   RecordCopy(oldQTr,QTp);
   RecordNew(IVp);
