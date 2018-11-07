@@ -1,3 +1,4 @@
+//<halrule>server-only</halrule>
 external function Boolean AssignOfficialSerNr();
 external procedure FindNextIVVcOfficialSerialNr(var record IVVc);
 external procedure AddPerceptionTaxesRows_ORVc(var record ORVc);
@@ -843,9 +844,9 @@ global
 updating function Integer RecordAction_raPasteQTInOrder(var record ORVc ORp,var record QTVc QTp,Boolean storef)
 begin
 	integer res;// Edit ************************** BPI Ukraine - KramarAlexandr - Wednesday, 7 November 2018 10:03:42
-	record ActVc Actr;
-	record RLinkVc RLr;
-	integer filenr;
+	record ActVc Actr;// Edit ************************** BPI Ukraine - KramarAlexandr - Wednesday, 7 November 2018 10:16:22
+	record RLinkVc RLr;// Edit ************************** BPI Ukraine - KramarAlexandr - Wednesday, 7 November 2018 10:16:23
+	integer filenr;// Edit ************************** BPI Ukraine - KramarAlexandr - Wednesday, 7 November 2018 10:16:23
 	
   res = RecordAction_raPasteQTInOrder2(ORp,QTp,storef,"");
 	
