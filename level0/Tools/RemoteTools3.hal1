@@ -1,3 +1,4 @@
+//<halrule>server-only</halrule>
 external function boolean AddEMailRecipients(var record MailVc,string,string,integer);
 external procedure RecalcProjectInvoice(record IVVc,string);
 external updating function Integer PastePOInDropSH(record POVc,var record DropSHVc,Integer);

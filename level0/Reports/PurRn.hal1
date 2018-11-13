@@ -222,7 +222,7 @@ BEGIN
 END;
 
 global
-function Boolean FindPOQantity2(record INVc INp,record ItemStatusVc ISp,Boolean varf,string location,record PIVc PIp,var val t1p,var val t2p,var val minlevel,val predsales,Boolean defic,Boolean checkpif,Boolean checkminpoqty,Boolean okpoonly,var val wsqty)// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 13 November 2018 15:53:03
+function Boolean FindPOQantity2(record INVc INp,record ItemStatusVc ISp,Boolean varf,string location,record PIVc PIp,var val t1p,var val t2p,var val minlevel,val predsales,Boolean defic,Boolean checkpif,Boolean checkminpoqty,Boolean okpoonly, var val wsqty)//BPI
 begin
 //try to make same as FindPOQty2
   Boolean res;
@@ -268,9 +268,9 @@ begin
 
   GetStockValue(INp.Code,location,ISp);
   if (okpoonly) then begin
-    t1p = ISp.Instock - ISp.OrddOut + ISp.POQty - ISp.ProdOrd - wsqty;//BPI// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 13 November 2018 15:53:22
+    t1p = ISp.Instock - ISp.OrddOut + ISp.POQty - ISp.ProdOrd - wsqty;//BPI
   end else begin
-    t1p = ISp.Instock - ISp.OrddOut + ISp.POUnOKQty - ISp.ProdOrd - wsqty;//BPI// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 13 November 2018 15:53:28
+    t1p = ISp.Instock - ISp.OrddOut + ISp.POUnOKQty - ISp.ProdOrd - wsqty;//BPI
   end;
   t2p = 0;
   t   = 0;
@@ -283,9 +283,11 @@ begin
   if (PIp.ItemCode=="") then begin
     res = false;
   end;
+  
   if (res) and (checkpif) then begin
     if (t2p>0) then begin
       t = t2p;
+      
       if (PIp.NormPOQty!=0) and (defic==false) then begin
         if (PIp.NormPOQty>t2p) then begin
           t2p = PIp.NormPOQty;
@@ -326,7 +328,7 @@ begin
   record PIVc PIr;
   record ItemStatusVc ISr;
   Boolean printf,pifound;
-  val t,t1,t2,minlevel,wsqty;// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. Ð¾ 13:10:33
+  val t,t1,t2,minlevel,wsqty;// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. î 13:10:33
 
   pifound = FindPItem(INr.Code,RepSpec.FirstAcc,PIr,RepSpec.f2,RepSpec.flags[1]);
   if (pifound==false) then begin
@@ -351,7 +353,7 @@ begin
       end;
     end;
   end;
-  pifound = FindPOQantity2(INr,ISr,varf,RepSpec.FirstAcc,PIr,t1,t2,minlevel,0,true,RepSpec.flags[5]!=0,false,RepSpec.flags[7]!=0,wsqty);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. Ð¾ 13:10:26
+  pifound = FindPOQantity2(INr,ISr,varf,RepSpec.FirstAcc,PIr,t1,t2,minlevel,0,true,RepSpec.flags[5]!=0,false,RepSpec.flags[7]!=0,wsqty);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. î 13:10:26
   if ((RepSpec.flags[3]==0) or (t1<>0)) then begin
     if (RepSpec.flags[4]==1) then  begin
       if (t2==0) then begin 
@@ -378,7 +380,7 @@ begin
           OutVal(6,0,ISr.POQty,M4UVal,true);        
         end;
         OutVal(8,0,ISr.ProdOrd,M4UVal,true);
-        OutVal(9,0,wsqty,M4UVal,true);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. Ð¾ 12:26:55
+        OutVal(9,0,wsqty,M4UVal,true);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. î 12:26:55
         OutVal(1,0,t2,M4UVal,true);
       end else begin
         OutVal(7,0,minlevel,M4UVal,true);
@@ -435,7 +437,7 @@ begin
         end;
       end;    
       if (testf) then begin
-        PrintData(90,RepSpec,itemcode,INr,true);
+        PrintData(2,RepSpec,itemcode,INr,true);
       end;
     end;
   end;
@@ -694,7 +696,7 @@ begin
   if (RepSpec.flags[6]!=0) and (varf) then begin
     ShowVarietiesDeficiency(RepSpec,INr);
   end else begin
-    PrintData(90,RepSpec,INr.Code,INr,varf);
+    PrintData(2,RepSpec,INr.Code,INr,varf);
   end;
   return;
 end;
@@ -877,15 +879,15 @@ begin
     Header(rw,tstr,1);
   end;
   EndHeader;
-  SetRepCol(2,90);
+  SetRepCol(2,60);
   if (IsStandardProduct==false) then begin
-    SetRepCol(7,190);
-    SetRepCol(3,235);
-    SetRepCol(4,290);
-    SetRepCol(5,330);
-    SetRepCol(6,380);
-    SetRepCol(8,430);
-    SetRepCol(9,420);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. Ð¾ 12:25:40
+    SetRepCol(7,150);
+    SetRepCol(3,185);
+    SetRepCol(4,220);
+    SetRepCol(5,250);
+    SetRepCol(6,300);
+    SetRepCol(8,350);
+    SetRepCol(9,420);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. î 12:25:40
   end else begin
     SetRepCol(7,235);
     SetRepCol(3,300);
@@ -902,7 +904,7 @@ begin
     OutString(5,0,USetStr(2348),true);
     OutString(6,0,USetStr(2347),true);
     OutString(8,0,USetStr(11770),true);
-    OutString(9,0,USetStr(11762),true);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. Ð¾ 12:22:27
+    OutString(9,0,USetStr(11762),true);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. î 12:22:27
     OutString(1,0,USetStr(2341),true);
   end else begin
     OutString(7,0,USetStr(5579),true);

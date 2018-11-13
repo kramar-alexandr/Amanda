@@ -307,7 +307,7 @@ BEGIN
     WSrw.VATCode = vatcode;
     WSrw.BasePrice = baseprice;
     WSrw.ArtCode = INr.Code;
-    if(INr.UPrice1==0)then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. Ð¾ 15:08:46
+    if(INr.UPrice1==0)then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. î 15:08:46
     	warn = 31000;
     end;
     WSrw.Objects = FindINObjects(INr.Objects,INr.Group);
@@ -679,7 +679,7 @@ begin
   string 20 location;
   record SerBalVc SBr;
   string 30 serial;
-  longint warn;// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. Ð¾ 15:10:48
+  longint warn;// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. î 15:10:48
 
   MatRowGet(WSr,rownr,WSrw);
   if (blank(WSrw.ArtCode)) then begin 
@@ -691,9 +691,9 @@ begin
         serial = WSrw.SerialNr;
         WSrw.PosCode = FindPositionWithSerialNr(WSr.Location,WSrw.ArtCode,WSrw.SerialNr,"");
         MatRowPut(WSr,rownr,WSrw);
-        if (WSVc_PasteArtCode(WSr,rownr,warn)) then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. Ð¾ 15:10:40
+        if (WSVc_PasteArtCode(WSr,rownr,warn)) then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. î 15:10:40
         end;
-        if(warn>-1)then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. Ð¾ 15:10:43
+        if(warn>-1)then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. î 15:10:43
         	messagebox(warn,"");
         end;
         MatRowGet(WSr,rownr,WSrw);

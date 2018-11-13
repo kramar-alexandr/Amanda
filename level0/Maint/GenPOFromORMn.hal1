@@ -1,5 +1,4 @@
 //<halrule>server-only</halrule>
-remote procedure OpenPurchaseOrder(var record POVc);
 external procedure POVc_PasteQuant(var record POVc,Integer);
 external function Boolean POVc_PasteArtCode(var record POVc,Integer,Boolean);
 external function Boolean PODchrsum(record POVc,Integer);
@@ -14,7 +13,7 @@ external procedure ExtractObj(string,var Integer,var string);
 external function string 255 FindINObjects(string,string);
 external procedure GetINPurchaseControlAcc(record INVc,var string,string,string,Integer);
 external function Boolean FindPItem(string,string,var record PIVc,string,Integer);
-external function Boolean FindPOQantity2(record INVc,record ItemStatusVc,Boolean,string,record PIVc,var val,var val,var val,val,Boolean,Boolean,Boolean,Boolean,var val);// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 13 November 2018 15:44:12
+external function Boolean FindPOQantity2(record INVc,record ItemStatusVc,Boolean,string,record PIVc,var val,var val,var val,val,Boolean,Boolean,Boolean,Boolean,var val);//BPI
 external function Integer ValidatePORecord(var record POVc,record POVc,LongInt,LongInt,Boolean,var string);
 external procedure CheckFlush(var Integer,Integer);
 external function val DivRateToBase1(string,val,val,val,val,val,val,roundmode);
@@ -374,9 +373,6 @@ BEGIN
     end;
   end;
 LSearchPOforVEandIN2:;  
-  if (res==0) then begin
-    RecordClear(POp);
-  end;
   SearchPOforVEandIN2 = res;
   RETURN;
 END;
@@ -398,7 +394,7 @@ BEGIN
   RETURN;
 END;
 
-updating procedure DoPO2(Integer flags1,Integer flags2,Integer flags5,Integer flags29,string f1,record INVc INp,record PIVc PIp,val ordqtyp,record ORVc ORp,row ORVc orrw,Integer ordrow,var Boolean addrf,Integer requestedtype,var record POVc resPOr)
+updating procedure DoPO2(Integer flags1,Integer flags2,Integer flags5,record INVc INp,record PIVc PIp,val ordqtyp,record ORVc ORp,row ORVc orrw,Integer ordrow,var Boolean addrf,Integer requestedtype)
 begin
   record MainStockBlock MainStockRec;
   record POVc oldPOr;
@@ -406,27 +402,15 @@ begin
   val t;
   Integer found;
   string 255 location,tstr;
-  Boolean novef;
   transaction Boolean gPOVcRecordCheck_Maintf;
   
-  if (flags29!=0 and blank(resPOr.VECode) and nonblank(f1)) then begin
-    RecordCopy(POr,resPOr);
-    novef = true;
-  end;
-  
   gPOVcRecordCheck_Maintf = true;
-  if (novef==false) then begin
-    found = SearchPOforVEandIN2(PIp.VECode,PIp.ItemCode,ORp,POr,ordqtyp,requestedtype);
+  found = SearchPOforVEandIN2(PIp.VECode,PIp.ItemCode,ORp,POr,ordqtyp,requestedtype);
 //  if (found==2) then begin goto LDoPO2; end;//when more than 2 items in SO we skiped 2nd item , why ? 
-    if (found) then begin
-      RecordCopy(oldPOr,POr);
-    end;
-  end;
+  RecordCopy(oldPOr,POr);
   POr.WONr = -1;
   if (found==0) then begin  
-    if (novef==false or MatRowCnt(resPOr)==0) then begin
-      NewPO(POr,PIp.VECode);
-    end;
+    NewPO(POr,PIp.VECode);
     POr.OrdNr = ORp.SerNr;//carefull, back to back
 //    POr.OrderType = ORp.OrderType;
     POr.OrderType = requestedtype;
@@ -479,22 +463,17 @@ begin
   end;
   POSumup(POr);
   SetPOFlags(POr,false);
-  if (flags29==0 or nonblank(POr.VECode)) then begin
-    if (POr.SerNr!=-1) then begin  
-      location = POr.Location;
-      if (blank(location)) then begin
-        BlockLoad(MainStockRec);
-        location = MainStockRec.MainStock;
-      end;
-      if (found==0) then begin
-        if (ValidatePORecord(POr,oldPOr,1,0,false,tstr)==0) then begin
-          if (RecordStore(POr,false)) then begin
-            CreateRecordLink(ORp,CurrentCompany,POr,CurrentCompany);  
-            CreateRecordLink(POr,CurrentCompany,ORp,CurrentCompany);  
-          end;
-        end;
-      end else begin
-        if (RecordUpdate(oldPOr,POr,true)==0) then begin     
+  if (POr.SerNr!=-1) then begin  
+    location = POr.Location;
+    if (blank(location)) then begin
+      BlockLoad(MainStockRec);
+      location = MainStockRec.MainStock;
+    end;
+    if (found==0) then begin
+      if (ValidatePORecord(POr,oldPOr,1,0,false,tstr)==0) then begin
+        if (RecordStore(POr,false)) then begin
+          CreateRecordLink(ORp,CurrentCompany,POr,CurrentCompany);  
+          CreateRecordLink(POr,CurrentCompany,ORp,CurrentCompany);  
         end;
       end;
     end else begin
@@ -502,8 +481,6 @@ begin
       end;
     end;
     t = blankval;
-  end else begin
-    RecordCopy(resPOr,POr);
   end;
 LDoPO2:;  
   RETURN;
@@ -523,7 +500,7 @@ BEGIN
   RETURN;
 END;
 
-updating procedure DoPO(Integer flags1,record INVc INp,record PIVc PIp,val ordqtyp,row ORVc orrw,Boolean orrwf,Boolean newpof,Boolean flushf,var Integer flushcnt,Array string apoforve,var Integer acnt,var LongInt startponr,Integer requestedtype,integer sortfl)// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 13 November 2018 15:45:51
+updating procedure DoPO(Integer flags1,record INVc INp,record PIVc PIp,val ordqtyp,row ORVc orrw,Boolean orrwf,Boolean newpof,Boolean flushf,var Integer flushcnt,Array string apoforve,var Integer acnt,var LongInt startponr,Integer requestedtype, integer sortfl)
 BEGIN
   record MainStockBlock MainStockRec;
   record POVc oldPOr;
@@ -532,7 +509,7 @@ BEGIN
   Boolean found,updateinf;
   string 60 objects;
   string 255 location,tstr;
-  
+    
   if (orrwf) then begin
     objects = orrw.Objects;
   end else begin
@@ -850,7 +827,6 @@ begin
   record ORVc ORr;
   row ORVc ORrw;
   record PIVc PIr;
-  record POVc resPOr;
   Boolean found,TrHs;
   Integer rwcnt,i;
   val t1,t2;
@@ -932,22 +908,13 @@ prder type per row
             case 0:
               ISr.Code = ORrw.ArtCode;
               FindStockValue(ORrw.ArtCode,"",ISr);
-              if (RepSpec.flags[3]!=0) then begin
-                pifound = FindPOQty2(ORrw.ArtCode,location,INr,ISr,PIr,0,t1,defic,RepSpec.flags[6]!=0);
-              end else begin
-                pifound = FindPOQty2(ORrw.ArtCode,location,INr,ISr,PIr,0,t1,defic,RepSpec.flags[6]!=0);
-              end;
-              if (RepSpec.flags[29]==0) then begin
-                if (pifound==false) then begin
-                  res = 20863;
-                  errstr = ORrw.ArtCode;
-                end;
+              pifound = FindPOQty2(ORrw.ArtCode,location,INr,ISr,PIr,0,t1,defic,RepSpec.flags[6]!=0);
+              if (pifound==false) then begin
+                res = 20863;
+                errstr = ORrw.ArtCode;
               end;
               if (RepSpec.flags[3]!=0) then begin
                 t2 = defic;
-                if (pifound) then begin
-                  t2 = defic + ORrw.Quant;
-                end;
               end else begin
                 t2 = ORrw.Quant;
                 if (PIr.MinPOQty!=0) then begin
@@ -964,8 +931,8 @@ prder type per row
                 GetPriceFromItem(RepSpec,PIr);
               end;
               if (t2>0) then begin
-                if (pifound or RepSpec.flags[29]!=0) then begin
-                  DoPO2(RepSpec.flags[1],RepSpec.flags[2],RepSpec.flags[5],RepSpec.flags[29],RepSpec.f1,INr,PIr,t2,ORr,ORrw,i,addrf,requestedtype,resPOr);
+                if (pifound) then begin
+                  DoPO2(RepSpec.flags[1],RepSpec.flags[2],RepSpec.flags[5],INr,PIr,t2,ORr,ORrw,i,addrf,requestedtype);
                 end;
               end;
             case 1:
@@ -987,17 +954,16 @@ prder type per row
               end;
               if (t2>0) then begin
                 if (pifound) then begin
-                  DoPO(RepSpec.flags[1],INr,PIr,t2,ORrw,true,false,flushf,flushcnt,apoforve,acnt,startponr,requestedtype,1);// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 13 November 2018 15:46:58
+                  DoPO(RepSpec.flags[1],INr,PIr,t2,ORrw,true,false,flushf,flushcnt,apoforve,acnt,startponr,requestedtype,1);// Edit ************************** BPI Ukraine - KramarAlexandr - Thursday, 23 August 2018 12:02:21
                 end;
               end;
             case 2:
               ISr.Code = ORrw.ArtCode;
               FindStockValue(ORrw.ArtCode,"",ISr);
+              pifound = FindPOQty2(ORrw.ArtCode,location,INr,ISr,PIr,ORrw.Quant,t1,t2,RepSpec.flags[6]!=0);
               if (RepSpec.flags[3]!=0) then begin
-                pifound = FindPOQty2(ORrw.ArtCode,location,INr,ISr,PIr,ORrw.Quant,t1,defic,RepSpec.flags[6]!=0);
                 t2 = defic;
               end else begin
-                pifound = FindPOQty2(ORrw.ArtCode,location,INr,ISr,PIr,ORrw.Quant,t1,t2,RepSpec.flags[6]!=0);
                 t2 = ORrw.Quant;
                 if (PIr.MinPOQty!=0) then begin
                   if (t2<PIr.MinPOQty) then begin
@@ -1022,13 +988,6 @@ prder type per row
   requestedtype = requestedtype - 1;
   
   end;
-
-  if (RepSpec.flags[29]!=0 and blank(POr.VECode) and nonblank(RepSpec.f1)) then begin
-    if (MatRowCnt(resPOr)>0) then begin
-      ClientRemoteAsync.OpenPurchaseOrder(resPOr);   
-    end;
-  end;
-
   gRuniningMaint = "";
   GenPOFromORMn1 = res;
   RETURN;
@@ -1069,11 +1028,11 @@ begin
     pifound = DoFindPItem(itemcode,"",PIr,RepSpec.LastAcc,matchve,RepSpec.flags[1]);
   end;
   if (pifound) then begin
-    pifound = FindPOQantity2(INr,ISr,true,RepSpec.FirstAcc,PIr,t1,t2,minlevel,0,true,true,true,RepSpec.flags[7],wsqty);// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 13 November 2018 15:47:35
+    pifound = FindPOQantity2(INr,ISr,true,RepSpec.FirstAcc,PIr,t1,t2,minlevel,0,true,true,true,RepSpec.flags[7],wsqty);//BPI
   end;   
   if (t2>0 or RepSpec.flags[2]!=0) then begin
     if (pifound) then begin
-      DoPO(RepSpec.flags[1],INr,PIr,t2,orrw,false,RepSpec.flags[2]!=0,false,flushcnt,apoforve,acnt,startponr,requestedtype,1);// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 13 November 2018 15:47:41
+      DoPO(RepSpec.flags[1],INr,PIr,t2,orrw,false,RepSpec.flags[2]!=0,false,flushcnt,apoforve,acnt,startponr,requestedtype,1);// Edit ************************** BPI Ukraine - KramarAlexandr - Thursday, 23 August 2018 12:02:56
     end;
   end;         
   return;
@@ -1355,7 +1314,7 @@ BEGIN
   Integer flushcnt;
   Array string 20 apoforve;
   Integer acnt;
-  val minlevel,wsqty;// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 13 November 2018 15:47:54
+  val minlevel,wsqty;
   LongInt startponr;
   string 255 itsz,mask,subsets,mskrep,xpos,ypos,zpos,tstr;
   Boolean varf;
@@ -1418,12 +1377,12 @@ BEGIN
       if (RepSpec.flags[3]==0) then begin
         pifound = DoFindPItem(INr.Code,RepSpec.FirstAcc,PIr,RepSpec.LastAcc,matchve,RepSpec.flags[1]);
         if (pifound) then begin
-          pifound = FindPOQantity2(INr,ISr,false,RepSpec.FirstAcc,PIr,t1,t2,minlevel,0,false,true,true,RepSpec.flags[7],wsqty);// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 13 November 2018 15:48:06
+          pifound = FindPOQantity2(INr,ISr,false,RepSpec.FirstAcc,PIr,t1,t2,minlevel,0,false,true,true,RepSpec.flags[7],wsqty);// Edit ************************** BPI Ukraine - KramarAlexandr - Wednesday, 22 August 2018 15:41:49
         end;   
 //        if (t2>0 or RepSpec.flags[2]!=0) then begin  //why creating New PO should ignore deficiency ?
         if (t2>0) then begin
           if (pifound) then begin
-            DoPO(RepSpec.flags[1],INr,PIr,t2,orrw,false,RepSpec.flags[2]!=0,flushf,flushcnt,apoforve,acnt,startponr,-1,RepSpec.flags[4]);// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 13 November 2018 15:49:23
+            DoPO(RepSpec.flags[1],INr,PIr,t2,orrw,false,RepSpec.flags[2]!=0,flushf,flushcnt,apoforve,acnt,startponr,-1,RepSpec.flags[4]);
           end;
         end;         
       end else begin
@@ -1433,12 +1392,12 @@ BEGIN
         end else begin      
           pifound = DoFindPItem(INr.Code,RepSpec.FirstAcc,PIr,RepSpec.LastAcc,matchve,RepSpec.flags[1]);
           if (pifound) then begin
-            pifound = FindPOQantity2(INr,ISr,false,RepSpec.FirstAcc,PIr,t1,t2,minlevel,0,false,true,true,RepSpec.flags[7],wsqty);// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 13 November 2018 15:51:52
+            pifound = FindPOQantity2(INr,ISr,false,RepSpec.FirstAcc,PIr,t1,t2,minlevel,0,false,true,true,RepSpec.flags[7],wsqty);// Edit ************************** BPI Ukraine - KramarAlexandr - Wednesday, 22 August 2018 15:41:48
           end;   
 //          if (t2>0 or RepSpec.flags[2]!=0) then begin  //why creating New PO should ignore deficiency ?
           if (t2>0) then begin
             if (pifound) then begin
-              DoPO(RepSpec.flags[1],INr,PIr,t2,orrw,false,RepSpec.flags[2]!=0,flushf,flushcnt,apoforve,acnt,startponr,-1,RepSpec.flags[4]);
+              DoPO(RepSpec.flags[1],INr,PIr,t2,orrw,false,RepSpec.flags[2]!=0,flushf,flushcnt,apoforve,acnt,startponr,-1,RepSpec.flags[4]);// Edit ************************** BPI Ukraine - KramarAlexandr - Thursday, 23 August 2018 12:01:53
             end;
           end;         
         end;

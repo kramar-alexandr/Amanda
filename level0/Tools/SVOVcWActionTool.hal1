@@ -257,7 +257,7 @@ BEGIN
   record SVOSerVc SVOSerr;
   row SVOVc SVOrw;
   Boolean res;
-	record PLDefVc PLDefR;// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. Ð¾ 15:36:28
+	record PLDefVc PLDefR;// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. î 15:36:28
 		
   if (rownr<MatRowCnt(SVOp)) then begin  
     MatRowGet(SVOp,rownr,SVOrw);
@@ -296,7 +296,7 @@ BEGIN
           SVOrw.AlternateDeviceID = SVOSerr.AlternateDeviceID;
           MatRowPut(SVOp,rownr,SVOrw);    
         end;
-        if(nonblank(SVOSerr.PLCode))then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. Ð¾ 15:35:31
+        if(nonblank(SVOSerr.PLCode))then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. î 15:35:31
         	SVOp.PriceList = SVOSerr.PLCode;
         	PLDefR.Code = SVOp.PriceList;
 					if (ReadFirstMain(PLDefR,1,true)) then begin

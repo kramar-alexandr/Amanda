@@ -17,7 +17,7 @@ remote function Boolean POQTVc_PasteArtCode(var record POQTVc,Integer,Boolean);
 remote function Boolean IntORVc_PasteArtCode(var record IntORVc,Integer,Boolean);
 external function Boolean IntORDClassSwitchRow(Integer,Integer);
 remote function Boolean SVOVc_PasteArtCode(var record SVOVc,Integer,Boolean);
-remote function Boolean WSVc_PasteArtCode(var record WSVc,Integer,var longint);// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 13 November 2018 16:33:50
+remote function Boolean WSVc_PasteArtCode(var record WSVc,Integer,var longint);
 external function Boolean PUDClassArtCodeEFAfter(Integer,Integer,Integer,Integer);
 remote function Boolean SDVc_PasteArtCode(var record SDVc,Integer,Integer,var string,var string);
 external function Boolean SDDClassSwitchRow(Integer,Integer);
@@ -650,7 +650,7 @@ begin
   row WSVc WSrw;
   boolean res;
   string 255 inwarn;
-  longint warn;// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. Ð¾ 15:09:32
+  longint warn;// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. î 15:09:32
  
   if (nonblank(dblstr)) then begin
     GetWindowRecord(currepwn,RepSpec);
@@ -672,7 +672,7 @@ begin
       ClearRow(WSr,WSrw,1);
       WSrw.ArtCode = dblstr;
       MatRowPut(WSr,rownr,WSrw);
-      if (WSVc_PasteArtCode(WSr,rownr,warn)) then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. Ð¾ 15:03:42
+      if (WSVc_PasteArtCode(WSr,rownr,warn)) then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. î 15:03:42
         DeselectWindow(RepSpec.UsedOnly,false);
         PutWindowRecord(RepSpec.UsedOnly,WSr);
         SelectWindow(RepSpec.UsedOnly);

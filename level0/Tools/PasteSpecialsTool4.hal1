@@ -386,7 +386,7 @@ procedure ActTypeConseqDataListSClassArrayOnOpen(string acttype,var Array string
 begin
   record ActSeqVc ASr;
   record ActTypeVc ATr;
-  Boolean found,testf;// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 13 November 2018 16:00:26
+  Boolean found,testf;
   Integer i,rwcnt;
   string 255 tstr;
   vector boolean vUsedCode;// Edit ************************** BPI Ukraine - KramarAlexandr - Wednesday, 24 October 2018 18:22:37

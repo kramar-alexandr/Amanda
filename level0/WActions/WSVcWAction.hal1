@@ -21,7 +21,7 @@ external function Boolean FindCustomerRelation(string,string,var record CUVc);
 external function Integer CheckSerialStatus(string,string,var string);
 external function string 40 SerialNrSClassSpecPName(string);
 //external function Integer PasteWOItemType(LongInt,string);
-remote function Boolean WSVc_PasteArtCode(var record WSVc,Integer,var longint);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. Ð¾ 15:02:36
+remote function Boolean WSVc_PasteArtCode(var record WSVc,Integer,var longint);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. î 15:02:36
 remote procedure WSVc_PasteQuant(var record WSVc,Integer);
 remote procedure WSVc_PasteEMCode(var record WSVc,string);
 external procedure CalcProc(val,val,var val);
@@ -33,7 +33,7 @@ external procedure CalcSum(val,val,val,val,var val,Integer);
 external procedure RoundRowSum(string,string,string,var val);
 remote updating function LongInt RecordAction_raPasteWSInPO(record WSVc,var array record POVc,var Integer,var string);
 remote updating function Boolean RecordAction_raPasteQTInWS(var record WSVc,record QTVc);
-external function LongInt TimeDiffInSeconds(Time,Time);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. Ð¾ 16:49:08
+external function LongInt TimeDiffInSeconds(Time,Time);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. î 16:49:08
 
 global
 function Boolean WSDchrsum(record WSVc WSr,Integer rownr,Integer UseDiscount)
@@ -58,12 +58,12 @@ end;
 function Boolean WSDClassArtCodeEFAfter(Integer wn,Integer fn,Integer rownr,Integer changedf)
 begin  
   record WSVc WSr;
-  longint warn;// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. Ð¾ 15:02:20
+  longint warn;// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. î 15:02:20
 
   if (changedf!=0) then begin
     GetWindowRecord(wn,WSr);
-    if (WSVc_PasteArtCode(WSr,rownr,warn)) then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. Ð¾ 15:02:23
-      if(warn>-1)then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. Ð¾ 15:10:43
+    if (WSVc_PasteArtCode(WSr,rownr,warn)) then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. î 15:02:23
+      if(warn>-1)then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. î 15:10:43
 				messagebox(warn,"");
 			end;
       PutWindowRecord(wn,WSr);
@@ -441,7 +441,7 @@ begin
   return;
 end;
 
-function Boolean WSDClasssTimeEFAfter(Integer wn,Integer rownr,Integer changedf)// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 13 November 2018 16:34:51
+function Boolean WSDClasssTimeEFAfter(Integer wn,Integer rownr,Integer changedf)
 begin  
   record WSVc WSr;
   row WSVc WSrw;
@@ -499,8 +499,8 @@ BEGIN
     case "TransDate": res = WSDClassTransDateEFAfter(wn,changed!=0);
     case "ItemType": res = WSDClassItemTypeEFAfter(wn,rownr,changed!=0);
     case "TaxTemplateCode": res = WSDClassTaxTemplateCodeEFAfter(wn,rownr,changed!=0);
-    case "sTime": res = WSDClasssTimeEFAfter(wn,rownr,changed);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. Ð¾ 16:44:52
-		case "eTime": res = WSDClasssTimeEFAfter(wn,rownr,changed);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. Ð¾ 16:44:54
+    case "sTime": res = WSDClasssTimeEFAfter(wn,rownr,changed);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. î 16:44:52
+		case "eTime": res = WSDClasssTimeEFAfter(wn,rownr,changed);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. î 16:44:54
   end;
   WSDClassAfterEditField = res;
   RETURN;

@@ -1,4 +1,3 @@
-//<halrule>server-only</halrule>
 external procedure PrintCurrencyCode(string,string);
 external procedure PortugueseFormFields(Integer);
 external procedure PrintSignature(string);

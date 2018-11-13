@@ -73,13 +73,14 @@ begin
     consactstored = false;
     ActSeqr.ActType = Actp.ActType;
     ActSeqr.ActResult = Actp.ActResult;
-    //foundf = false;// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 13 November 2018 15:56:13
-    TrHs = true;// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 13 November 2018 15:56:23
-    while(loopmain(ActSeqr,2,TrHs))begin// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 13 November 2018 15:56:28
-			if( ActSeqr.ActType!=Actp.ActType or ActSeqr.ActResult!=Actp.ActResult)then begin
-				TrHs = false;
-			end;
-			if (TrHs) then begin// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 13 November 2018 15:57:58
+    //foundf = false;
+    TrHs = true;
+    while(loopmain(ActSeqr,2,TrHs))begin
+    	foundf = false;
+    	if( ActSeqr.ActType!=Actp.ActType or ActSeqr.ActResult!=Actp.ActResult)then begin
+    		TrHs = false;
+    	end;
+			if (TrHs) then begin// Edit ************************** BPI Ukraine - KramarAlexandr - Friday, 12 October 2018 13:05:05
 				foundf = true;
 				if (ActSeqr.ActType!=Actp.ActType) then begin foundf = false; end;
 				if (ActSeqr.ActResult!=Actp.ActResult) then begin foundf = false; end;
@@ -95,6 +96,9 @@ begin
 					newActr.StartTime = Actp.StartTime;
 					newActr.CostTime = Actp.CostTime;
 					minutes = ActSeqr.NrOfHours * 60;
+					if (ActSeqr.NrOfHours==-1) then begin
+						minutes = 0;
+					end;
 					days = AddTime(Actp.StartTime,minutes,t);
 					newActr.StartTime = t;
 					temp = AddTime(Actp.EndTime,minutes,t);
@@ -115,9 +119,6 @@ begin
 									newActr.MainPersons = Actp.MainPersons;
 								end;
 							end;
-							// Edit Start ---------------------------------------------- Edit Start
-	//Tuesday, 13 November 2018 15:59:12
-	
 						case 2://Supervisor// Edit ************************** BPI Ukraine - KramarAlexandr - Wednesday, 31 October 2018 16:09:06
 							newActr.MainPersons = Actp.Supervisor;
 							if(blank(newActr.MainPersons))then begin
@@ -126,9 +127,6 @@ begin
 							if(blank(newActr.MainPersons))then begin
 								newActr.MainPersons = Actp.MainPersons;
 							end;
-						
-	// Edit End ---------------------------------------------- Edit End
-		
 						otherwise
 							if (nonblank(ActSeqr.Person)) then begin
 								newActr.MainPersons = ActSeqr.Person;
@@ -274,7 +272,7 @@ begin
 				end;
 	LNextLevelAcceptanceTasksCreated:;        
 			end;
-    end;// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 13 November 2018 15:59:22
+    end;// Edit ************************** BPI Ukraine - KramarAlexandr - Friday, 12 October 2018 13:03:31
   end;
   return;
 end;

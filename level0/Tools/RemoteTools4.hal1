@@ -1868,8 +1868,6 @@ BEGIN
   RepSpec.flags[2] = 0;
   RepSpec.flags[3] = 0;//if 1 than it is not per order but for Instock Qty
   RepSpec.flags[4] = 2;
-  RepSpec.flags[29] = 1;
-
   res = GenPOFromORMn2(RepSpec,errstr);
 LRecordAction_rlOrderToPO:;
   RecordAction_rlOrderToPO = res;
