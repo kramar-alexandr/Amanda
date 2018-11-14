@@ -192,7 +192,10 @@ RecordBegin(SwedbankImportVc,-,"");// Edit ************************** BPI Ukrain
   RecordField(RndPORowsumDirec,M4Set,400,0);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. о 13:37:31
   EndBlock;*/
   
-  RecordBegin(ActSeqVc,-,"");
+
+  
+  
+  RecordBegin(ActSeqVc,-,"BPIActS");
   RecordField(ActType,M4Code,5,ActTypeVc);
   RecordField(ActResult,M4Code,5,ActTypeVc);
   RecordField(NextType,M4Code,5,ActTypeVc);
@@ -231,17 +234,6 @@ RecordBegin(SwedbankImportVc,-,"");// Edit ************************** BPI Ukrain
   KeySegment(NextType);// Edit ************************** BPI Ukraine - KramarAlexandr - Friday, 12 October 2018 12:58:44
   EndRecord;
   
-  RecordBegin(ActExportVc,-,"");
-  RecordField(ActSerNr,M4Long,0,ActVc);
-  RecordField(Person,M4Code,10,UserVc);
-  RecordField(iCalUID,M4Str,40,0);
-  RecordField(LastExportDate,M4Date,0,0);
-  MainKeyBegin(ActPers,0);
-  KeySegment(ActSerNr);
-  KeySegment(Person);
-  KeyBegin(iCalUID);
-  KeySegment(iCalUID);
-  EndRecord;
 	
   return;
 end;
