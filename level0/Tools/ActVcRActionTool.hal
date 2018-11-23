@@ -76,6 +76,7 @@ begin
     //foundf = false;// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 13 November 2018 15:56:13
     TrHs = true;// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 13 November 2018 15:56:23
     while(loopmain(ActSeqr,2,TrHs))begin// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 13 November 2018 15:56:28
+			foundf = false;
 			if( ActSeqr.ActType!=Actp.ActType or ActSeqr.ActResult!=Actp.ActResult)then begin
 				TrHs = false;
 			end;
