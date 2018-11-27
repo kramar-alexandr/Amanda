@@ -8,6 +8,9 @@ begin
 	
 	SString(31000,"Don't have price for this item");// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. о 15:06:08
 	
+	Document("Downpayment inv.",DIVRClass,DInvForm,DInvFClass,modSL);// Edit ************************** BPI Ukraine - KramarAlexandr - 02, 27 11 2018 y. at 5:41:52 PM
+
+	
 	SetBegin(1438);// Edit ************************** BPI Ukraine - KramarAlexandr - Wednesday, 31 October 2018 16:45:00
   SetText(0,"Specified Person");
   SetText(1,"From Originating Record");
