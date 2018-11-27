@@ -13,6 +13,19 @@ begin
   SetText(1,"From Originating Record");
   SetText(2,"Supervisor");
   EndSet;
+  
+  StrSetBegin(1584);
+  StrSetText(ActVc,"Activities");
+  StrSetText(IntProjManActVc,"Project Activities");
+  StrSetText(IntProjManToDoActVc,"To Dos");
+  StrSetText(KitchenOrderVc,"Kitchen Orders");
+  StrSetText(OYVc,"Opportunities");
+  StrSetText(PRVc,"Projects");
+  StrSetText(QTVc,"Quotations");
+  StrSetText(ORVc,"Sales Orders");
+  StrSetText(POVc,"Purchase Orders");
+  StrSetText(SVOVc,"Service Orders");
+  EndStrSet;
 	
   return;
 end;

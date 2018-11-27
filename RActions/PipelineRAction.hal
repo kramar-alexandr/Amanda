@@ -1,0 +1,43 @@
+global
+updating function LongInt POVcRecordSaveClient(LongInt wn,var record POVc POp,record POVc PO2p,LongInt stat,LongInt long4)
+BEGIN
+  LongInt res;
+
+  res = inner.POVcRecordSaveClient(wn,POp,PO2p,stat,long4);
+  UpdateBrowses("PipelineWClass");
+  POVcRecordSaveClient = res;
+  RETURN;
+END;
+
+global
+updating function LongInt SVOVcRecordSaveClient(LongInt wn,var record SVOVc SVOp,record SVOVc SVO2p,LongInt stat,LongInt long4)
+BEGIN
+  LongInt res;
+
+  res = inner.SVOVcRecordSaveClient(wn,SVOp,SVO2p,stat,long4);
+  UpdateBrowses("PipelineWClass");
+  SVOVcRecordSaveClient = res;
+  RETURN;
+END;
+
+global
+updating function LongInt POVcRecordUpdateClient(LongInt wn,var record POVc POp,record POVc PO2p,LongInt stat,LongInt long4)
+BEGIN
+  LongInt res;
+
+  res = inner.POVcRecordUpdateClient(wn,POp,PO2p,stat,long4);
+  UpdateBrowses("PipelineWClass");
+  POVcRecordUpdateClient = res;
+  RETURN;
+END;
+
+global
+updating function LongInt SVOVcRecordUpdateClient(LongInt wn,var record SVOVc SVOp,record SVOVc SVO2p,LongInt stat,LongInt long4)
+BEGIN
+  LongInt res;
+
+  res = inner.SVOVcRecordUpdateClient(wn,SVOp,SVO2p,stat,long4);
+  UpdateBrowses("PipelineWClass");
+  SVOVcRecordUpdateClient = res;
+  RETURN;
+END;

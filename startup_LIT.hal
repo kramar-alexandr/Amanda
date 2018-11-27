@@ -14,6 +14,19 @@ begin
   SetText(1,"Iš originalių įrašų");
   SetText(2,"Supervisor");
   EndSet;
+  
+  StrSetBegin(1584);
+  StrSetText(ActVc,"Veiklos");
+  StrSetText(IntProjManActVc,"Projekto veiklos"); 
+  StrSetText(IntProjManToDoActVc,"Reikia padaryti"); 
+  StrSetText(KitchenOrderVc,"Virtuvės užsakymai");
+  StrSetText(OYVc,"Galimybės");
+  StrSetText(PRVc,"Projektai");
+  StrSetText(QTVc,"Pasiūlymai");
+  StrSetText(ORVc,"Pardavimo užsakymai");
+  StrSetText(POVc,"Pirkimų užsakymai");
+  StrSetText(SOVc,"Paslaugų užsakymai");
+  EndStrSet;
 	
   return;
 end;

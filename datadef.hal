@@ -234,6 +234,48 @@ RecordBegin(SwedbankImportVc,-,"");// Edit ************************** BPI Ukrain
   KeySegment(NextType);// Edit ************************** BPI Ukraine - KramarAlexandr - Friday, 12 October 2018 12:58:44
   EndRecord;
   
+  BlockBegin(PipelinOverviewBlock,-,"PipeOverBlock4");
+  RecordField(Math,M4Matrix,0,0);
+  ArrayBegin(Math,-,1);
+  ArrayField(ViewName,M4Str,40,0);
+  ArrayField(ColumnName,M4Str,40,0);
+  ArrayField(Register,M4StrSet,1584,0);// Edit ************************** BPI Ukraine - KramarAlexandr
+  ArrayField(RegisterFilter,M4List,200,0);
+  ArrayField(Amounts,M4Set,594,0);
+  ArrayField(RegisterFilter2,M4List,200,0);
+  ArrayField(colnr,M4Set,46,0);
+  EndArray;
+  EndBlock;
+
+  RecordBegin(UserPipelinOverviewVc,-,"UserPipeOverVc3");
+  RecordField(UserCode,M4Code,20,UserVc);
+  RecordField(UserName,M4Str,60,0);
+  RecordField(Math,M4Matrix,0,0);
+  RecordField(DefaultViewName,M4Str,40,0);
+  ArrayBegin(Math,-,1);
+  ArrayField(ViewName,M4Str,40,0);
+  ArrayField(ColumnName,M4Str,40,0);
+  ArrayField(Register,M4StrSet,1584,0);// Edit ************************** BPI Ukraine - KramarAlexandr
+  ArrayField(RegisterFilter,M4List,200,0);
+  ArrayField(Amounts,M4Set,594,0);
+  ArrayField(RegisterFilter2,M4List,200,0);
+  ArrayField(colnr,M4Set,46,0);
+  EndArray;
+  MainKeyBegin(UserCode,0);
+  KeySegment(UserCode);
+  KeyBegin(UserName);
+  KeySegment(UserName);
+  KeySegment(UserCode);
+  EndRecord;
+  
+  RecordAddBegin(POVc,"POVc_Custom");// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. о 14:39:23
+		SubsetKeyBegin2(POClass);
+		StoreInBaseKey;
+		AppendFieldToKeyName(SalesMan);
+		AppendFieldToKeyName(SalesGroup);
+		KeySegment(POClass);
+		KeySegment(SerNr);
+	endrecordadd;
 	
   return;
 end;
