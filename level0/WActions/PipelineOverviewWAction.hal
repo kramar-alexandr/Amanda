@@ -438,7 +438,7 @@ begin
       rwcnt = MatRowCnt(UPOr);
       if (arow<rwcnt) then begin
         MatRowGet(UPOr,arow,UPOrw);
-        switch (StringSetFromString(1584,UPOrw.Register)) begin//BPI edited
+        switch (StringSetFromString(1584,UPOrw.Register)) begin//BPI edited// Edit ************************** BPI Ukraine - KramarAlexandr - 03, 28 11 2018 y. at 2:53:39 PM
           case "ActVc":
             switch (actfld) begin
               case "RegisterFilter2":
@@ -473,9 +473,9 @@ begin
           case "RCAEC6CB623613711B4350336D3571BA6302203D8Vc":
     //        psname = "ActTypeSClass";
     			case "POVc":
-    	        psname = "POrderClassSClass";//BPI edited
+    	        psname = "POrderClassSClass";//BPI edited// Edit ************************** BPI Ukraine - KramarAlexandr - 03, 28 11 2018 y. at 2:53:32 PM
     	    case "SVOVc":
-    	        psname = "OrderClassSClass";//BPI edited
+    	        psname = "OrderClassSClass";//BPI edited// Edit ************************** BPI Ukraine - KramarAlexandr - 03, 28 11 2018 y. at 2:53:34 PM
         end;
       end;
     case "PipelineOverviewTClass":
@@ -483,7 +483,7 @@ begin
       rwcnt = MatRowCnt(POb);
       if (arow<rwcnt) then begin
         MatRowGet(POb,arow,PObrw);
-        switch (StringSetFromString(1584,PObrw.Register)) begin//BPI edited
+        switch (StringSetFromString(1584,PObrw.Register)) begin//BPI edited// Edit ************************** BPI Ukraine - KramarAlexandr - 03, 28 11 2018 y. at 2:53:36 PM
           case "ActVc":
             switch (actfld) begin
               case "RegisterFilter2":
@@ -518,9 +518,9 @@ begin
           case "RCAEC6CB623613711B4350336D3571BA6302203D8Vc":
     //        psname = "ActTypeSClass";
     			case "POVc":
-    	        psname = "POrderClassSClass";//BPI edited
+    	        psname = "POrderClassSClass";//// Edit ************************** BPI Ukraine - KramarAlexandr - 03, 28 11 2018 y. at 2:53:19 PMBPI edited
     	    case "SVOVc":
-    	        psname = "OrderClassSClass";//BPI edited
+    	        psname = "OrderClassSClass";//// Edit ************************** BPI Ukraine - KramarAlexandr - 03, 28 11 2018 y. at 2:53:21 PMBPI edited
         end;
       end;
   end;  

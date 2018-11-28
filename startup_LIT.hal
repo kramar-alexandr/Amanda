@@ -28,7 +28,7 @@ begin
   StrSetText(QTVc,"Pasiūlymai");
   StrSetText(ORVc,"Pardavimo užsakymai");
   StrSetText(POVc,"Pirkimų užsakymai");
-  StrSetText(SOVc,"Paslaugų užsakymai");
+  StrSetText(SVOVc,"Paslaugų užsakymai");
   EndStrSet;
 	
   return;

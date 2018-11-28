@@ -1,3 +1,4 @@
+//<halrule>server-only</halrule>
 external function Integer OYTestApprovalStatus(record OYVc);
 external updating function Integer CreateQTFromOYD2(record OYVc,var record QTVc,var string,string);
 external updating function Integer CreateORFromOYD2(record OYVc,var record ORVc,var string,string);
@@ -487,7 +488,6 @@ begin
     SVOr.TransDate = RepSpec.sEndDate;
     while (LoopBackKey(index,SVOr,segs,found)) begin
       if (SVOr.OrderClass!=qclass) then begin found = false; end;      
-     
       if (found) then begin
         testf = true;
         if (SVOr.DoneMark!=0) then begin testf = false; end; 
