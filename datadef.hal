@@ -277,5 +277,26 @@ RecordBegin(SwedbankImportVc,-,"");// Edit ************************** BPI Ukrain
 		KeySegment(SerNr);
 	endrecordadd;
 	
+	RecordBegin(ImgAtchLnkVc,-,"");// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 06 12 2018 y. at 11:24:25 AM
+  RecordField(AttachSerNr,M4Long,0,0);  
+  MainKeyBegin(AttachSerNr,0);
+  KeySegment(AttachSerNr);
+  EndRecord;
+  
+  RecordBegin(BPIINTextVc,-,"");// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 06 12 2018 y. at 11:24:23 AM
+  RecordField(Code,M4Code,20,INVc);
+  RecordField(Math,M4Matrix,0,0);
+  ArrayBegin(Math,-,1);
+  ArrayField(LangCode,M4Code,5,0);
+  ArrayField(Text,M4Str,255,0);
+  ArrayField(Text1,M4Str,255,0);
+  ArrayField(Text2,M4Str,255,0);
+  ArrayField(Style,M4Str,20,StyleVc);
+  EndArray;
+  MainKeyBegin(Code,0);
+  KeySegment(Code);
+ 	EndRecord;
+
+	
   return;
 end;

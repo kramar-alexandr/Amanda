@@ -66,9 +66,7 @@ begin
   EditField(h=100,v+=vs,150,"Ammount",ViewOnly,AmtCcy,false,0);
   EditField(h=100,v+=vs,150,"Curncy",ViewOnly,CurncyCode,false,0); 
   EditField(h=100,v+=vs,150,"OrgId",ViewOnly,OrgId,false,0); 
-  EditField(h=100,v+=vs,150,"PrvtId",ViewOnly,PrvtId,false,0); 
-  
-  SearchField("Search");
+  EditField(h=100,v+=vs,150,"PrvtId",ViewOnly,PrvtId,false,0);   
   EndWindow;
   
 end; 
@@ -143,8 +141,6 @@ begin
   EditField(h=100,v+=vs,150,"Curncy",ViewOnly,CurncyCode,false,0); 
   EditField(h=100,v+=vs,150,"OrgId",ViewOnly,OrgId,false,0); 
   EditField(h=100,v+=vs,150,"PrvtId",ViewOnly,PrvtId,false,0);
-  
-  SearchField("Search");
   EndWindow;
   
 end; 
@@ -219,8 +215,6 @@ begin
   EditField(h=100,v+=vs,150,"Curncy",ViewOnly,CurncyCode,false,0); 
   EditField(h=100,v+=vs,150,"OrgId",ViewOnly,OrgId,false,0); 
   EditField(h=100,v+=vs,150,"PrvtId",ViewOnly,PrvtId,false,0);
-  
-  SearchField("Search");
   EndWindow;
   
 end;  
@@ -246,3 +240,41 @@ begin
   EndWindow;
 
 end;
+
+
+
+window BPIINTextLClass:1// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 28 August 2018 14:38:38
+  wtag("language","LIT"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin
+  WindowBegin("Extended Text for Items",BPIINTextLClass,CGmlist,-);
+  SetWRect(20,80,1200,355);
+  Sizeable(-1,-1,0,0);
+  SpawnClass(BPIINTextDClass);
+  UseView(BPIINTextVc);
+  RecordList(4,17,-21,-39);
+  RlColKey(4,1,"Item Code",Code,false,Code);
+  SearchField("Search");
+  EndWindow;
+end;
+
+window BPIINTextDClass:1// Edit ************************** BPI Ukraine - KramarAlexandr - Tuesday, 28 August 2018 14:38:41
+  wtag("language","LIT"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin
+  real f,h,v,vm,vs;
+	
+  WindowBegin("Extended Text for Items",BPIINTextDClass,CGview,-);
+  SetWRect(20,80,250,250);
+  Sizeable(-1,-1,0,0);
+  UseView(BPIINTextVc);
+  
+  vs = 20;
+  EditField(h=100,v=30,150,"Code",ViewOnly,Code,false,0);
+  MatrixBegin(3,v+=40,-20,-20,-,99);
+		MatCol(1,24,"Language",0,LangCode,false,LangSClass);
+		MatCol(1,70,"Style",0,Style,false,StyleSClass);
+		MatCol(1,150,"Text",0,Text,false,0);
+		MatCol(1,350,"Text1",0,Text1,false,0);
+  EndMatrix;
+  EndWindow;
+  
+end; 

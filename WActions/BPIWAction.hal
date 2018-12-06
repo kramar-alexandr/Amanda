@@ -210,3 +210,23 @@ begin
   BPIActSecUserSClassOnOKWindow = false;
   return;
 end;
+
+global
+updating procedure BPIINTextFromINDsm()
+begin
+	record INVc INr;
+	integer wn;
+	record BPIINTextVc BPIINTextr;
+		
+	wn = curwindow;
+	getwindowrecord(wn,INr);
+	BPIINTextr.Code = INr.Code;
+	if(readfirstmain(BPIINTextr,1,true)==false)then begin
+		recordnew(BPIINTextr);
+		BPIINTextr.Code = INr.Code;
+		recordstore(BPIINTextr,true);
+	end;
+	OpenWindow("BPIINTextDClass",0,0,"","",BPIINTextr);
+	
+return;
+end;

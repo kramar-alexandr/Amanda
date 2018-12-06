@@ -6,6 +6,7 @@ begin
   Import("Amanda - SEB Bank import Statement",SEBBankImportSTIClass,SEBBankImportSTIn,modSL);// Edit ************************** BPI Ukraine - KramarAlexandr - Thursday, 23 August 2018 14:22:10
   Setting("Amanda - Banking Statement Import settings",BankImportSetTClass,modSL);// Edit ************************** BPI Ukraine - KramarAlexandr - Wednesday, 13 June 2018 10:16:15
 	Setting("Amanda - SEB Bank import Statement",SEBbankImportLClass,modSL);// Edit ************************** BPI Ukraine - KramarAlexandr - Thursday, 23 August 2018 14:22:19
+	Setting("Amanda - Extended Text for Items",BPIINTextLClass,modQT);// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 06 12 2018 y. at 11:31:59 AM
 
 	SString(31000,"Neturite kainos šiai prekei");// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 27 09 2018 y. о 15:06:08
 	
