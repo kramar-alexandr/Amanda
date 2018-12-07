@@ -630,7 +630,6 @@ BEGIN
 						matrowget(BPIINTextr,j,BPIINTextrw);
 						SetFormStyle(BPIINTextrw.Style,0);
 						atstr[j] = BPIINTextrw.Text;
-						OUTFORMFIELD("F_BPIEXTTEXTS_" & j,BPIINTextrw.Text); 
 						SetFormStyle("",0); 
 					end;
 				end;
@@ -638,6 +637,24 @@ BEGIN
 				for(j=0;j<mtrw;j=j+1)begin
 					if(fieldinform("F_BPIEXTTEXTS_" & j))then begin
 						OUTFORMFIELD("F_BPIEXTTEXTS_" & j,atstr[j]); 
+					end;
+				end;
+				
+				mtrw = 0;
+				BPIINTextr.Code = INr.Code;
+				if(readfirstmain(BPIINTextr,1,true))then begin
+					mtrw = matrowcnt(BPIINTextr);
+					for(j=0;j<mtrw;j=j+1)begin
+						matrowget(BPIINTextr,j,BPIINTextrw);
+						SetFormStyle(BPIINTextrw.Style,0);
+						atstr[j] = BPIINTextrw.Text1;
+						SetFormStyle("",0); 
+					end;
+				end;
+				
+				for(j=0;j<mtrw;j=j+1)begin
+					if(fieldinform("F_BPIEXTTEXTS1_" & j))then begin
+						OUTFORMFIELD("F_BPIEXTTEXTS1_" & j,atstr[j]); 
 					end;
 				end;
 				
