@@ -720,7 +720,7 @@ begin
   val totdiscount;
   record QTVc QTr;
   row QTVc QTrw;// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 06 12 2018 y. at 4:05:53 PM
-	boolean addrow;
+	boolean addrow,exclfirst,excllast;
 	
 	recordcopy(QTr,origQTr);
 	
@@ -734,16 +734,27 @@ begin
   	if(Docrw.unitStyle=="F_PYITEM")then begin
   		addrow = true;
   	end;
+  	if(fieldinform("F_EXCLUDFIRST"))then begin
+  		exclfirst = true;
+  	end;
+  	if(fieldinform("F_EXCLUDLAST"))then begin
+  		excllast = true;
+  	end;
+  	
   end;
   
   if(addrow)then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 06 12 2018 y. at 4:05:18 PM
   	clearrow(QTr,QTrw,99);
   	QTrw.stp = 99;
-  	matrowinsert(QTr,0,QTrw);
-  	matrowput(QTr,matrowcnt(QTr),QTrw);
-  	rwcnt2 = rwcnt2 + 2;// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 06 12 2018 y. at 5:00:55 PM
+  	if(exclfirst==false)then begin
+			matrowinsert(QTr,0,QTrw);
+			rwcnt2 = rwcnt2 + 1;// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 06 12 2018 y. at 5:00:55 PM
+  	end;
+  	if(excllast==false)then begin
+			matrowput(QTr,matrowcnt(QTr),QTrw);
+			rwcnt2 = rwcnt2 + 1;// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 06 12 2018 y. at 5:00:55 PM
+  	end;
   end;
-  logtext(0,"rwcnt2 " & rwcnt2);
   NumberofDocumentPages(formcode,rwcnt2);
   CUr.Code = QTr.CustCode;
   if (ReadFirstMain(CUr,1,true)) then begin
