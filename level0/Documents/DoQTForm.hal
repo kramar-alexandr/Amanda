@@ -229,6 +229,7 @@ BEGIN
     
     switch (QTrw.stp) begin
     	case 99:// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 06 12 2018 y. at 4:08:37 PM
+      	logtext(0,"OutFormImage2 blak");
       	OutFormImage2(dummyINr,"F_PYITEM");
       	for(j=1;j<6;j=j+1)begin
 					OutFormImage2(dummyINr,"F_PYITEM" & "small" & j);
@@ -585,6 +586,7 @@ BEGIN
 				
 				filenr = 1;
 				smallcnt = 1;
+				logtext(0,"i" & i & " " & INr.Code);
 				while (ReadRecordLink(INr,filenr,Attach2r,RLr)) begin
 					if (left(Attach2r.FileName,len(INr.Code))==INr.Code)then begin
 						ImAtchLnkr.AttachSerNr = Attach2r.SerNr;
@@ -594,6 +596,7 @@ BEGIN
 							recordstore(ImAtchLnkr,true);
 							createrecordlink(ImAtchLnkr,currentcompany,Attach2r,currentcompany);
 						end;
+						logtext(0,"OutFormImage2 real");
 						OutFormImage2(ImAtchLnkr,"F_PYITEM");
 						vimgfnd["F_PYITEM"] = true;
 					end;
@@ -613,6 +616,7 @@ BEGIN
 				end;
 				
 				if(vimgfnd["F_PYITEM"]==false)then begin
+				logtext(0,"OutFormImage2 unfound");
 					OutFormImage2(dummyINr,"F_PYITEM");
 				end;
 				
@@ -712,7 +716,7 @@ begin
   row DocVc Docrw;
   record PRVc PRr;
   record LocationVc Locr;
-  Integer i,rwcnt,rwcnt2;
+  Integer i,rwcnt,rwcnt2,j;// Edit ************************** BPI Ukraine - KramarAlexandr - 02, 18 12 2018 y. at 5:36:08 PM
   record CUVc CUr;
   record IIBlock IIb;
   string 255 tstr;
@@ -721,6 +725,7 @@ begin
   record QTVc QTr;
   row QTVc QTrw;// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 06 12 2018 y. at 4:05:53 PM
 	boolean addrow,exclfirst,excllast;
+	record INVc dummyINr;// Edit ************************** BPI Ukraine - KramarAlexandr - 02, 18 12 2018 y. at 5:35:48 PM
 	
 	recordcopy(QTr,origQTr);
 	
@@ -729,33 +734,28 @@ begin
   CommonDocumentFields(RepSpec);          
   rwcnt2 = CountQuotationRows(QTr);
   
-  for(i=i;i<matrowcnt(Docr);i=i+1)begin
-  	matrowget(Docr,i,Docrw);
-  	if(Docrw.unitStyle=="F_PYITEM")then begin
-  		addrow = true;
-  	end;
-  	if(fieldinform("F_EXCLUDFIRST"))then begin
-  		exclfirst = true;
-  	end;
-  	if(fieldinform("F_EXCLUDLAST"))then begin
-  		excllast = true;
-  	end;
-  	
+  if(QTr.PrintSet>0)then begin
+		switch(QTr.PrintSet)begin
+			case 1:addrow = true;
+			case 2:addrow = true; excllast = true;
+			case 3:addrow = true; exclfirst = true;
+		end;
+		
+		if(addrow)then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 06 12 2018 y. at 4:05:18 PM
+			clearrow(QTr,QTrw,99);
+			QTrw.stp = 99;
+			if(exclfirst==false)then begin
+				matrowinsert(QTr,0,QTrw);
+				rwcnt2 = rwcnt2 + 2;// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 06 12 2018 y. at 5:00:55 PM
+			end;
+			if(excllast==false)then begin
+				matrowput(QTr,matrowcnt(QTr),QTrw);
+				rwcnt2 = rwcnt2 + 1;// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 06 12 2018 y. at 5:00:55 PM
+			end;
+		end;
   end;
   
-  if(addrow)then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 06 12 2018 y. at 4:05:18 PM
-  	clearrow(QTr,QTrw,99);
-  	QTrw.stp = 99;
-  	if(exclfirst==false)then begin
-			matrowinsert(QTr,0,QTrw);
-			rwcnt2 = rwcnt2 + 1;// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 06 12 2018 y. at 5:00:55 PM
-  	end;
-  	if(excllast==false)then begin
-			matrowput(QTr,matrowcnt(QTr),QTrw);
-			rwcnt2 = rwcnt2 + 1;// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 06 12 2018 y. at 5:00:55 PM
-  	end;
-  end;
-  NumberofDocumentPages(formcode,rwcnt2);
+  NumberofDocumentPages(formcode,rwcnt2); 
   CUr.Code = QTr.CustCode;
   if (ReadFirstMain(CUr,1,true)) then begin
   end;        
@@ -959,6 +959,13 @@ begin
   end;
   
   PrintQuotationRows(RepSpec,Docr,QTr,LangNrr,SFb,rwcnt2,totdiscount);
+  
+  logtext(0,"OutFormImage2 blak end");// Edit ************************** BPI Ukraine - KramarAlexandr - 02, 18 12 2018 y. at 5:35:56 PM
+	OutFormImage2(dummyINr,"F_PYITEM");
+	for(j=1;j<6;j=j+1)begin
+		OutFormImage2(dummyINr,"F_PYITEM" & "small" & j);
+	end;
+  
   OUTFORMFIELD("F_CLASS",QTr.QuoteClass);      
   OUTFORMFIELD("F_TAXSUM",QTr.TAX1Sum);          
   if (QTr.InclVAT==0) then begin
@@ -1064,6 +1071,15 @@ BEGIN
     formcode = "";
     for (i=rwcnt-1;i>=0;i=i-1) begin
       MatRowGet(FDr,i,FDrw);
+      
+      if(QTr.PrintSet>0)then begin
+				switch(QTr.PrintSet)begin
+					case 1:FDrw.FPCode = FDrw.FPCode & "_HIF";
+					case 2:FDrw.FPCode = FDrw.FPCode & "_HI";
+					case 3:FDrw.FPCode = FDrw.FPCode & "_IF";
+				end;
+			end;
+      
       if (Getformcode(i,FDrw.intdocnr,FDrw.FPCode,FDrw.UserGroup,FDrw.LangCode,FDrw.SerNr,QTr.SerNr,FDrw.PrintGroupCode,
                       langcode,intdocnr,"QTVc",formcode)) then
       begin
