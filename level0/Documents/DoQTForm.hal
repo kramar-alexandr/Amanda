@@ -209,6 +209,7 @@ BEGIN
 	integer mtrw;
 	array string 255 atstr,astyle;
 	VECTOR boolean vimgfnd;
+	boolean skipf;
   //:edz// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 06 12 2018 y. at 10:11:43 AM
   
   
@@ -637,9 +638,20 @@ BEGIN
 					mtrw = matrowcnt(BPIINTextr);
 					for(j=0;j<mtrw;j=j+1)begin
 						matrowget(BPIINTextr,j,BPIINTextrw);
-						atstr[j] = BPIINTextrw.Text;
-						astyle[j] = BPIINTextrw.Style;
-						SetFormStyle("",0); 
+						skipf = true;
+						logtext(0,"LangNrr.LangCode " & LangNrr.LangCode);
+						if(nonblank(LangNrr.LangCode) and LangNrr.LangCode!=BPIINTextrw.LangCode)then begin
+							skipf = false;
+						end;
+						if(blank(BPIINTextrw.LangCode))then begin
+							skipf = true;
+						end;
+						
+						if(skipf)then begin
+							atstr[j] = BPIINTextrw.Text;
+							astyle[j] = BPIINTextrw.Style;
+							SetFormStyle("",0); 
+						end;
 					end;
 				end;
 				
@@ -661,9 +673,19 @@ BEGIN
 					mtrw = matrowcnt(BPIINTextr);
 					for(j=0;j<mtrw;j=j+1)begin
 						matrowget(BPIINTextr,j,BPIINTextrw);
-						astyle[j] = BPIINTextrw.Style;
-						atstr[j] = BPIINTextrw.Text1;
-						SetFormStyle("",0); 
+						skipf = true;
+						logtext(0,"LangNrr.LangCode " & LangNrr.LangCode);
+						if(nonblank(LangNrr.LangCode) and LangNrr.LangCode!=BPIINTextrw.LangCode)then begin
+							skipf = false;
+						end;
+						if(blank(BPIINTextrw.LangCode))then begin
+							skipf = true;
+						end;
+						if(skipf)then begin
+							astyle[j] = BPIINTextrw.Style;
+							atstr[j] = BPIINTextrw.Text1;
+							SetFormStyle("",0); 
+						end;
 					end;
 				end;
 				
