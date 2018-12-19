@@ -218,7 +218,7 @@ BEGIN
   BlockLoad(MSb);
   BlockLoad(Roundb);
   RecordClear(dummyINr);
-  logtext(0,"rwcnt 2 " & rwcnt);
+
   for (i=0;i<rwcnt;i=i+1) begin
     MatRowGet(QTr,i,QTrw);
     SetRowStyle(Docr,"QTVc",QTrw.stp,QTrw.ArtCode,QTrw.Sum);
@@ -230,7 +230,6 @@ BEGIN
     
     switch (QTrw.stp) begin
     	case 99:// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 06 12 2018 y. at 4:08:37 PM
-      	logtext(0,"OutFormImage2 blak");
       	OutFormImage2(dummyINr,"F_PYITEM");
       	for(j=1;j<6;j=j+1)begin
 					OutFormImage2(dummyINr,"F_PYITEM" & "small" & j);
@@ -587,7 +586,6 @@ BEGIN
 				
 				filenr = 1;
 				smallcnt = 1;
-				logtext(0,"i" & i & " " & INr.Code);
 				while (ReadRecordLink(INr,filenr,Attach2r,RLr)) begin
 					if (left(Attach2r.FileName,len(INr.Code))==INr.Code)then begin
 						ImAtchLnkr.AttachSerNr = Attach2r.SerNr;
@@ -597,7 +595,6 @@ BEGIN
 							recordstore(ImAtchLnkr,true);
 							createrecordlink(ImAtchLnkr,currentcompany,Attach2r,currentcompany);
 						end;
-						logtext(0,"OutFormImage2 real");
 						OutFormImage2(ImAtchLnkr,"F_PYITEM");
 						vimgfnd["F_PYITEM"] = true;
 					end;
@@ -617,7 +614,6 @@ BEGIN
 				end;
 				
 				if(vimgfnd["F_PYITEM"]==false)then begin
-				logtext(0,"OutFormImage2 unfound");
 					OutFormImage2(dummyINr,"F_PYITEM");
 				end;
 				
@@ -639,7 +635,6 @@ BEGIN
 					for(j=0;j<mtrw;j=j+1)begin
 						matrowget(BPIINTextr,j,BPIINTextrw);
 						skipf = true;
-						logtext(0,"LangNrr.LangCode " & LangNrr.LangCode);
 						if(nonblank(LangNrr.LangCode) and LangNrr.LangCode!=BPIINTextrw.LangCode)then begin
 							skipf = false;
 						end;
@@ -674,7 +669,6 @@ BEGIN
 					for(j=0;j<mtrw;j=j+1)begin
 						matrowget(BPIINTextr,j,BPIINTextrw);
 						skipf = true;
-						logtext(0,"LangNrr.LangCode " & LangNrr.LangCode);
 						if(nonblank(LangNrr.LangCode) and LangNrr.LangCode!=BPIINTextrw.LangCode)then begin
 							skipf = false;
 						end;
@@ -982,7 +976,6 @@ begin
   
   PrintQuotationRows(RepSpec,Docr,QTr,LangNrr,SFb,rwcnt2,totdiscount);
   
-  logtext(0,"OutFormImage2 blak end");// Edit ************************** BPI Ukraine - KramarAlexandr - 02, 18 12 2018 y. at 5:35:56 PM
 	OutFormImage2(dummyINr,"F_PYITEM");
 	for(j=1;j<6;j=j+1)begin
 		OutFormImage2(dummyINr,"F_PYITEM" & "small" & j);
