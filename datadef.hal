@@ -276,11 +276,7 @@ RecordBegin(SwedbankImportVc,-,"");// Edit ************************** BPI Ukrain
 		KeySegment(POClass);
 		KeySegment(SerNr);
 	endrecordadd;
-	
-	RecordAddBegin(QTVc,"QTVc_Custom");// Edit ************************** BPI Ukraine - KramarAlexandr - 02, 18 12 2018 y. at 4:05:27 PM
-		RecordField(PrintSet,M4Int,0,0);// Edit ************************** BPI Ukraine - KramarAlexandr - 02, 18 12 2018 y. at 4:05:55 PM
-	endrecordadd;
-	
+
 	RecordBegin(ImgAtchLnkVc,-,"");// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 06 12 2018 y. at 11:24:25 AM
   RecordField(AttachSerNr,M4Long,0,0);  
   MainKeyBegin(AttachSerNr,0);

@@ -579,6 +579,8 @@ BEGIN
         //payout-19; edz:// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 06 12 2018 y. at 10:20:53 AM
 				//OutFormImage2(INr,"F_PYITEM");
 				
+				OUTFORMFIELD("BPIF_ROWWWARRANTY",ValToString(INr.WarrantyLength,M4Qty,ThousandSeparator,"",0)); 
+				
 				vimgfnd["F_PYITEM"] = false;
 				for(j=1;j<6;j=j+1)begin
 					vimgfnd["F_PYITEM" & "small" & j] = false;
@@ -742,6 +744,7 @@ begin
   row QTVc QTrw;// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 06 12 2018 y. at 4:05:53 PM
 	boolean addrow,exclfirst,excllast;
 	record INVc dummyINr;// Edit ************************** BPI Ukraine - KramarAlexandr - 02, 18 12 2018 y. at 5:35:48 PM
+	record UserVc USr;// Edit ************************** BPI Ukraine - KramarAlexandr - 05, 21 12 2018 y. at 9:28:45 PM
 	
 	recordcopy(QTr,origQTr);
 	
@@ -750,7 +753,7 @@ begin
   CommonDocumentFields(RepSpec);          
   rwcnt2 = CountQuotationRows(QTr);
   
-  if(QTr.PrintSet>0)then begin
+  /*if(QTr.PrintSet>0)then begin
 		switch(QTr.PrintSet)begin
 			case 1:addrow = true;
 			case 2:addrow = true; excllast = true;
@@ -769,7 +772,7 @@ begin
 				rwcnt2 = rwcnt2 + 1;// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 06 12 2018 y. at 5:00:55 PM
 			end;
 		end;
-  end;
+  end;*/
   
   NumberofDocumentPages(formcode,rwcnt2); 
   CUr.Code = QTr.CustCode;
@@ -1019,7 +1022,13 @@ begin
   OUTFORMFIELD("F_LOCADDRESS",Locr.Addr2);
   OUTFORMFIELD("F_LOCADDRESS",Locr.Addr3);
   OUTFORMFIELD("F_LOCADDRESS",Locr.Addr4);
-
+  
+  // Edit ************************** BPI Ukraine - KramarAlexandr - 05, 21 12 2018 y. at 9:27:18 PM
+	USr.Code = QTr.SalesMan;
+	readfirstmain(USr,1,true);
+	OUTFORMFIELD("BPIF_SALESPHONE",USr.Phone1);
+	OUTFORMFIELD("BPIF_SALESMAIL",USr.emailAddr);
+	// Edit ************************** BPI Ukraine - KramarAlexandr - 05, 21 12 2018 y. at 9:27:21 PM
 
   if (FIELDINFORM("F_TEXT")) then begin
     if (nonblank(QTr.PRCode)) then begin
@@ -1087,13 +1096,13 @@ BEGIN
     for (i=rwcnt-1;i>=0;i=i-1) begin
       MatRowGet(FDr,i,FDrw);
       
-      if(QTr.PrintSet>0)then begin
+      /*if(QTr.PrintSet>0)then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 05, 21 12 2018 y. at 9:36:57 PM
 				switch(QTr.PrintSet)begin
 					case 1:FDrw.FPCode = FDrw.FPCode & "_HIF";
 					case 2:FDrw.FPCode = FDrw.FPCode & "_HI";
 					case 3:FDrw.FPCode = FDrw.FPCode & "_IF";
 				end;
-			end;
+			end;*/
       
       if (Getformcode(i,FDrw.intdocnr,FDrw.FPCode,FDrw.UserGroup,FDrw.LangCode,FDrw.SerNr,QTr.SerNr,FDrw.PrintGroupCode,
                       langcode,intdocnr,"QTVc",formcode)) then
@@ -1103,6 +1112,14 @@ BEGIN
     end;
 LBREAK:;
     if (nonblank(formcode)) then begin
+    	if (OpenForm(formcode)) then begin
+        OUTFORMFIELD("F_DOCTYPE",USetStr(23454));
+        PrintQT(RepSpec,SFb,formcode,QTr,LangNrr);
+        CloseForm;
+      end else begin
+        printf = false;
+        MessageBox(1546,formcode);
+      end;
       if (OpenForm(formcode)) then begin
         OUTFORMFIELD("F_DOCTYPE",USetStr(23454));
         PrintQT(RepSpec,SFb,formcode,QTr,LangNrr);
