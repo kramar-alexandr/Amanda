@@ -297,10 +297,7 @@ BEGIN
           ItemBCEAN13(QTrw.ArtCode,tstr);      
           OUTFORMFIELD("F_ARTNRBCEAN13",tstr);
         end;  				
-        SetFormStyle("12I",12);
-        OUTFORMFIELD("F_SPECIFIKATION",QTrw.Spec & "dsfbsdkjhfsdjkfn");
-        SetFormStyle("",0);
-         OUTFORMFIELD("F_SPECIFIKATION",QTrw.Spec & "dsfbsdkjhfsdjkfn");
+         OUTFORMFIELD("F_SPECIFIKATION",QTrw.Spec);
         tstr = ValToString(QTrw.Sum,M4Val,SFb.thousSep,SFb.decimalPt,LangNrr.CutDecimals);
         OUTFORMFIELD("F_BELOPP",tstr);
         tstr = ValToString(QTrw.Quant,M4UVal,SFb.thousSep,SFb.decimalPt,LangNrr.CutDecimals);
@@ -399,7 +396,8 @@ BEGIN
           if (blank(tstr)) then begin
             tstr = USetStr(1244);
           end;
-          OUTFORMFIELD("F_ROWVATEXCLPRC",tstr);    
+          OUTFORMFIELD("F_ROWVATEXCLPRC",tstr);  
+          OUTFORMFIELD("F_VATPRC",tstr);  // Edit ************************** BPI Ukraine - KramarAlexandr - 05, 28 12 2018 y. at 3:58:43 PM
         end else begin
           if (nonblank(QTrw.Sum)) then begin
             tstr = ValToString(vatexclprc,M4UVal,SFb.thousSep,SFb.decimalPt,LangNrr.CutDecimals);
@@ -409,9 +407,10 @@ BEGIN
               tstr = tstr & "%";
             end;
             OUTFORMFIELD("F_ROWVATEXCLPRC",tstr);
+            OUTFORMFIELD("F_VATPRC",tstr);// Edit ************************** BPI Ukraine - KramarAlexandr - 05, 28 12 2018 y. at 3:58:45 PM
           end;
         end;
-
+				
 
         if (FIELDINFORM("F_BASE1ROWVATVAL")) then begin
           t = MulRateToBase1(QTr.CurncyCode,vatval,QTr.FrRate,QTr.ToRateB1,QTr.ToRateB2,QTr.BaseRate1,QTr.BaseRate2,DefaultCurRoundOff);
@@ -1113,14 +1112,6 @@ BEGIN
 LBREAK:;
     if (nonblank(formcode)) then begin
     	if (OpenForm(formcode)) then begin
-        OUTFORMFIELD("F_DOCTYPE",USetStr(23454));
-        PrintQT(RepSpec,SFb,formcode,QTr,LangNrr);
-        CloseForm;
-      end else begin
-        printf = false;
-        MessageBox(1546,formcode);
-      end;
-      if (OpenForm(formcode)) then begin
         OUTFORMFIELD("F_DOCTYPE",USetStr(23454));
         PrintQT(RepSpec,SFb,formcode,QTr,LangNrr);
         CloseForm;
