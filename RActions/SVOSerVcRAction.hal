@@ -6,7 +6,7 @@ begin
   record INVc INr;
 
   res = 0;
-  res = inner.SVOSerVcRecordCheck(SVOSerr,SVOSer2r,stat,long4);
+  //res = inner.SVOSerVcRecordCheck(SVOSerr,SVOSer2r,stat,long4);
   if(nonblank(SVOSerr.ItemCode))then begin
   	INr.Code = SVOSerr.ItemCode;
   	if(readfirstmain(INr,1,true))then begin
