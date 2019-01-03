@@ -1,0 +1,25 @@
+//<halrule>server-only</halrule>
+global
+function LongInt IVVcRecordCheck(var record IVVc IVr,record IVVc IV2r,LongInt stat,LongInt long4)
+begin
+  LongInt res;
+  record CashierDefBlock CDb;
+	
+	blockload(CDb);
+	
+  res = 0;
+  if(CDb.AlwaysFiscal==1 and IVr.OKFlag==0)then begin
+  	IVr.FiscalFlag = 1;
+  end;
+  if(stat==Rs_update)then begin
+  	if(CDb.AlwaysFiscal==1 and IV2r.OKFlag==0)then begin
+			IVr.FiscalFlag = 1;
+		end;
+  end;
+  res = inner.IVVcRecordCheck(IVr,IV2r,stat,long4);
+  
+  
+LIVVcRecordCheck:
+  IVVcRecordCheck = res;
+  return;
+end;
