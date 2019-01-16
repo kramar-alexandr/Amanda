@@ -603,6 +603,7 @@ BEGIN
   
   BlockLoad(OrdSettRec);
   BlockLoad(PlanDelRec);
+  ORp.PPVal = QTp.PPVal;// Edit ************************** BPI Ukraine - KramarAlexandr - 03, 16 01 2019 y. at 11:31:31 AM
   ORp.OrderClass = orderclass;
   ORp.BankCode = QTp.BankCode;
   ORp.CustCode = QTp.CustCode;

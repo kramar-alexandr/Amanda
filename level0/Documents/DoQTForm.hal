@@ -786,6 +786,8 @@ begin
     OUTFORMFIELD("F_OFFICIALSERNO",QTr.ProformaOfficialSerNr);
   end;
 
+	PrintValue("BPIF_PPVAL",QTr.PPVal,M4Val,LangNrr,SFb,false);// Edit ************************** BPI Ukraine - KramarAlexandr - 03, 16 01 2019 y. at 11:28:21 AM
+
   OUTFORMFIELD("F_REFERENSNUMMER",QTr.RefStr);
   OUTFORMFIELD("F_KUNDNAMN",QTr.Addr0);        
   OUTFORMFIELD("F_DISCSUM",QTr.DiscSum);        

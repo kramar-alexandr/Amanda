@@ -297,6 +297,14 @@ RecordBegin(SwedbankImportVc,-,"");// Edit ************************** BPI Ukrain
   MainKeyBegin(Code,0);
   KeySegment(Code);
  	EndRecord;
+ 	
+ 	RecordAddBegin(ORVc,"ORVc_Custom");
+		RecordField(PPVal,M423Val,0,0);// Edit ************************** BPI Ukraine - KramarAlexandr - 03, 16 01 2019 y. at 10:59:23 AM
+	endrecordadd;
+	
+	RecordAddBegin(QTVc,"QTVc_Custom");
+		RecordField(PPVal,M423Val,0,0);// Edit ************************** BPI Ukraine - KramarAlexandr - 03, 16 01 2019 y. at 10:59:23 AM
+	endrecordadd;
 	
 	BlockBegin(CashierDefBlock,-,"CashierDefBlock3");
   NewAutosyncBlock(kSyncDirectionToClient);
