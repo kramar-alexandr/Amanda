@@ -305,9 +305,6 @@ LkInvoiceRowTypeNormal:;
 			if (FIELDINFORM("BPIF_ROWSUM")) then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 03, 16 01 2019 y. at 11:43:20 AM
 				PrintValue("BPIF_ROWSUM",ORrw.Sum*((100-ORr.PPVal)/100),M4Val,LangNrr,SysFormatRec,false);
 			end;
-			if (FIELDINFORM("BPIF_SUM3")) then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 03, 16 01 2019 y. at 11:43:20 AM
-				PrintValue("BPIF_SUM3",ORr.Sum3*((100-ORr.PPVal)/100),M4Val,LangNrr,SysFormatRec,false);
-			end;
 			
 			UnpackRowFieldMatrix(ORrw,"TaxMatrix",TMr);
 			if (FIELDINFORM("BPIF_ROWPRICEVVAT")) then begin
@@ -916,8 +913,8 @@ BEGIN
   
   User.Code = ORr.SalesMan;
 	if(readfirstmain(User,1,true))then begin
-		OUTFORMFIELD("BPIF_SIGNEMAIL",User.emailAddr);
-		OUTFORMFIELD("BPIF_SIGNPHONE",User.Phone1);
+		OUTFORMFIELD("BPIF_SIGNEMAIL",User.emailAddr);// Edit ************************** BPI Ukraine - KramarAlexandr - 03, 16 01 2019 y. at 2:12:25 PM
+		OUTFORMFIELD("BPIF_SIGNPHONE",User.Phone1);// Edit ************************** BPI Ukraine - KramarAlexandr - 03, 16 01 2019 y. at 2:12:27 PM
 	end;
 	
 	if (FIELDINFORM("BPIF_SUM4")) then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 03, 16 01 2019 y. at 11:43:20 AM
