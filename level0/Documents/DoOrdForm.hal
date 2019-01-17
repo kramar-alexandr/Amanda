@@ -921,7 +921,7 @@ BEGIN
     PrintValue("BPIF_SUM4",ORr.Sum4*((100-ORr.PPVal)/100),M4Val,LangNrr,SysFormatRec,false);
   end;
   if (FIELDINFORM("BPIF_SUM1")) then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 03, 16 01 2019 y. at 11:43:20 AM
-    PrintValue("BPIF_SUM1",ORr.Sum1*((100-ORr.PPVal)/100),M4Val,LangNrr,SysFormatRec,false);
+    PrintValue("BPIF_SUM1",(ORr.Sum4-ORr.Sum3)*((100-ORr.PPVal)/100),M4Val,LangNrr,SysFormatRec,false);
   end;
   if (FIELDINFORM("BPIF_SUM3")) then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 03, 16 01 2019 y. at 11:43:20 AM
     PrintValue("BPIF_SUM3",ORr.Sum3*((100-ORr.PPVal)/100),M4Val,LangNrr,SysFormatRec,false);
