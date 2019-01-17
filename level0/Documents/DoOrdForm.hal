@@ -1085,6 +1085,10 @@ BEGIN
     ValToText(ORr.Sum4,M4Val,ORr.CurncyCode,ORr.LangCode,tstr);
     OUTFORMFIELD("F_ATTBETALATEXT",tstr);  
   end;
+  if (FIELDINFORM("F_AMOUNTINTEXT")) then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 04, 17 01 2019 y. at 10:28:28 AM
+    ValToText(ORr.Sum4,M4Val,ORr.CurncyCode,ORr.LangCode,tstr);
+    OUTFORMFIELD("F_AMOUNTINTEXT",tstr);  
+  end;
   
   
   PrintValue("F_FRAKT",ORr.FrPrice,M4Val,LangNrr,SysFormatRec,false);
