@@ -300,15 +300,15 @@ LkInvoiceRowTypeNormal:;
       
       
       if (FIELDINFORM("BPIF_PRICE")) then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 03, 16 01 2019 y. at 11:43:20 AM
-				PrintValue("BPIF_PRICE",ORrw.Price*((100-ORr.PPVal)/100),M4Val,LangNrr,SysFormatRec,false);
+				PrintValueInclZero("BPIF_PRICE",ORrw.Price*(1-(100-ORr.PPVal)/100),M4Val,LangNrr,SysFormatRec,false);
 			end;
 			if (FIELDINFORM("BPIF_ROWSUM")) then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 03, 16 01 2019 y. at 11:43:20 AM
-				PrintValue("BPIF_ROWSUM",ORrw.Sum*((100-ORr.PPVal)/100),M4Val,LangNrr,SysFormatRec,false);
+				PrintValueInclZero("BPIF_ROWSUM",ORrw.Sum*(1-(100-ORr.PPVal)/100),M4Val,LangNrr,SysFormatRec,false);
 			end;
 			
 			UnpackRowFieldMatrix(ORrw,"TaxMatrix",TMr);
 			if (FIELDINFORM("BPIF_ROWPRICEVVAT")) then begin
-				FindSalesExVat(TMr,ORrw.VATCode,ORrw.Price*((100-ORr.PPVal)/100),ORr.InclVAT,ORr.NoTAXonVAT,t);
+				FindSalesExVat(TMr,ORrw.VATCode,ORrw.Price*(1-(100-ORr.PPVal)/100),ORr.InclVAT,ORr.NoTAXonVAT,t);
 				if (Roundb.Discount==0) then begin
 					t = Round(t,SetRoundModeD(3));
 				end else begin
@@ -317,7 +317,7 @@ LkInvoiceRowTypeNormal:;
 				PrintValueInclZero("BPIF_ROWPRICEVVAT",t,M423Val,LangNrr,SysFormatRec,false);
 			end;
 			if (FIELDINFORM("BPIF_ROWSUMVVAT")) then begin
-				FindSalesExVat(TMr,ORrw.VATCode,ORrw.Sum*((100-ORr.PPVal)/100),ORr.InclVAT,ORr.NoTAXonVAT,t);
+				FindSalesExVat(TMr,ORrw.VATCode,ORrw.Sum*(1-(100-ORr.PPVal)/100),ORr.InclVAT,ORr.NoTAXonVAT,t);
 				if (Roundb.Discount==0) then begin
 					t = Round(t,SetRoundModeD(3));
 				end else begin
@@ -904,10 +904,10 @@ BEGIN
   tstr = GetJwl_CustomerName(ORr.CustCode);
   OUTFORMFIELD("F_KUNDNAMNJWL",tstr);  
   
-  PrintValue("BPIF_PPVAL",ORr.PPVal,M4Val,LangNrr,SysFormatRec,false);// Edit ************************** BPI Ukraine - KramarAlexandr - 03, 16 01 2019 y. at 11:12:44 AM
+  PrintValueInclZero("BPIF_PPVAL",ORr.PPVal,M4Val,LangNrr,SysFormatRec,false);// Edit ************************** BPI Ukraine - KramarAlexandr - 03, 16 01 2019 y. at 11:12:44 AM
   
   if (FIELDINFORM("BPIF_ATTBETALATEXT")) then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 03, 16 01 2019 y. at 11:43:20 AM
-    ValToText(ORr.Sum4*((100-ORr.PPVal)/100),M4Val,ORr.CurncyCode,ORr.LangCode,tstr);
+    ValToText(ORr.Sum4*(1-(100-ORr.PPVal)/100),M4Val,ORr.CurncyCode,ORr.LangCode,tstr);
     OUTFORMFIELD("BPIF_ATTBETALATEXT",tstr);  
   end;
   
@@ -918,13 +918,13 @@ BEGIN
 	end;
 	
 	if (FIELDINFORM("BPIF_SUM4")) then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 03, 16 01 2019 y. at 11:43:20 AM
-    PrintValue("BPIF_SUM4",ORr.Sum4*((100-ORr.PPVal)/100),M4Val,LangNrr,SysFormatRec,false);
+    PrintValueInclZero("BPIF_SUM4",ORr.Sum4*(1-(100-ORr.PPVal)/100),M4Val,LangNrr,SysFormatRec,false);
   end;
   if (FIELDINFORM("BPIF_SUM1")) then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 03, 16 01 2019 y. at 11:43:20 AM
-    PrintValue("BPIF_SUM1",(ORr.Sum4-ORr.Sum3)*((100-ORr.PPVal)/100),M4Val,LangNrr,SysFormatRec,false);
+    PrintValueInclZero("BPIF_SUM1",(ORr.Sum4-ORr.Sum3)*(1-(100-ORr.PPVal)/100),M4Val,LangNrr,SysFormatRec,false);
   end;
   if (FIELDINFORM("BPIF_SUM3")) then begin// Edit ************************** BPI Ukraine - KramarAlexandr - 03, 16 01 2019 y. at 11:43:20 AM
-    PrintValue("BPIF_SUM3",ORr.Sum3*((100-ORr.PPVal)/100),M4Val,LangNrr,SysFormatRec,false);
+    PrintValueInclZero("BPIF_SUM3",ORr.Sum3*(1-(100-ORr.PPVal)/100),M4Val,LangNrr,SysFormatRec,false);
   end;
 
   
