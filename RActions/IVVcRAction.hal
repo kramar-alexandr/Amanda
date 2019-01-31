@@ -8,8 +8,10 @@ begin
 	blockload(CDb);
 	
   res = 0;
-  if(CDb.AlwaysFiscal==1 and IVr.OKFlag==0)then begin
-  	IVr.FiscalFlag = 1;
+  if(stat==Rs_insert)then begin
+		if(CDb.AlwaysFiscal==1)then begin
+			IVr.FiscalFlag = 1;
+		end;
   end;
   if(stat==Rs_update)then begin
   	if(CDb.AlwaysFiscal==1 and IV2r.OKFlag==0)then begin
