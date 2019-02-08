@@ -5,6 +5,7 @@ SourceFile("halcust/level0/Reports",0);
 SourceFile("halcust/level0/Tools",0);
 SourceFile("halcust/level0/WActions",0);
 SourceFile("halcust/level0/Printers",0);
+SourceFile("halcust/level0/RActions",0);
 SourceFile("halcust/Maint",3);
 SourceFile("halcust/WActions",3);
 SourceFile("halcust/Windows",3);
@@ -347,5 +348,18 @@ RecordBegin(SwedbankImportVc,-,"");// Edit ************************** BPI Ukrain
 
   EndBlock;
 	
+	BlockBegin(SVOAccBlock,-,"SVOAccBlock2");// Edit ************************** BPI Ukraine - KramarAlexandr - 05, 08 02 2019 y. at 9:28:48 AM
+		RecordField(SalesAcc,M4Code,10,AccVc);
+		RecordField(StockAcc,M4Code,10,AccVc);
+		RecordField(ServiceAcc,M4Code,10,AccVc);
+		RecordField(SVOText,M4Int,0,0);
+		RecordField(InvoiceSVO,M4Int,0,0);
+		RecordField(WSHeaderObjectOnSVOIV,M4Int,0,0);
+		RecordField(WSUpdStockFlag,M4Int,0,0);
+		RecordField(AllowOneMainItem,M4Int,0,0);
+		RecordField(ObjTypePrefix,M4Str,10,0);// Edit ************************** BPI Ukraine - KramarAlexandr - 05, 08 02 2019 y. at 9:29:26 AM
+		RecordField(OutoObjCreate,M4Int,0,0);// Edit ************************** BPI Ukraine - KramarAlexandr - 05, 08 02 2019 y. at 9:29:28 AM
+  EndBlock;
+		
   return;
 end;

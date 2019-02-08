@@ -2066,3 +2066,31 @@ begin
   SpecialMenu("Add Item",' ',0,"AddItemQTDsm");  
   EndWindow;
 end;
+
+
+
+window AccSVOTClass:1
+  wtag("language","ENG"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin
+  real h,h2,l,v,vs;
+  WindowBegin("Account Usage Service Order",AccSVOTClass,CGSbl,SVOAccType);
+  SetBlid(SVOAccBlock);
+  SetWRect(20,80,430,360);
+  vs = 20; h = 180; l = 70; h2 = 100;
+  /* Not used anywere
+  EditField(h,v=6,l,"Sales Account",Normal,SalesAcc,false,AccSClass);
+  EditField(h,v+=vs,l,"#Stock# Account",Normal,StockAcc,false,AccSClass);//703
+  EditField(h,v+=vs,l,"Service Account",Normal,ServiceAcc,false,AccSClass);
+  ButtonFrame(h2,v+=46,150,2,"Invoice order");
+  RadioButton(h2,v,0,0,"Service Order",InvoiceSVO);
+  RadioButton(h2,v+=16,1,0,"Work Sheets",InvoiceSVO);
+  CheckBox(h2,v+=30,0,"Text from Service Order",SVOText);
+  */
+  CheckBox(h2,v+=16,0,"Work Sheet Tag/Object on Invoice",WSHeaderObjectOnSVOIV);
+  CheckBox(h2,v+=16,0,"Work Sheet Update #Stock#",WSUpdStockFlag);
+  CheckBox(h2,v+=16,0,"Allow only 1 main item per Service Order",AllowOneMainItem);
+  EditField(h2+50,v+=20,50,"Service Tag / Object type",Normal,ObjTypePrefix,false,OTSClass);// Edit ************************** BPI Ukraine - KramarAlexandr - 05, 08 02 2019 y. at 9:30:57 AM
+  CheckBox(h2,v+=20,0,"Automatically Create Service Order Tags/Objects",OutoObjCreate);// Edit ************************** BPI Ukraine - KramarAlexandr - 05, 08 02 2019 y. at 9:32:22 AM
+  
+  EndWindow;
+end;

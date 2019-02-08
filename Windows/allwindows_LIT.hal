@@ -2071,3 +2071,29 @@ end;
   SpecialMenu("Pridėti prekę",' ',0,"AddItemQTDsm");  
   EndWindow;
 end;
+
+window AccSVOTClass:1
+  wtag("language","LIT"), wtag("product","*"), wtag("productcode","*"), wtag("device","computer")
+begin
+  real h,h2,l,v,vs;
+  WindowBegin("Sąskaitų panaudojimas paslaugų Užsak.",AccSVOTClass,CGSbl,SVOAccType);
+  SetBlid(SVOAccBlock);
+  SetWRect(20,80,430,360);
+  vs = 20; h = 180; l = 70; h2 = 100;
+  /* Not used anywere
+  EditField(h,v=6,l,"Pardavimų sąsk.",Normal,SalesAcc,false,AccSClass);
+  EditField(h,v+=vs,l,"Sandėlio sąsk.",Normal,StockAcc,false,AccSClass);//703
+  EditField(h,v+=vs,l,"Paslaugų sąsk.",Normal,ServiceAcc,false,AccSClass);
+  ButtonFrame(h2,v+=46,150,2,"Faktūros Užsak.");
+  RadioButton(h2,v,0,0,"Paslaugų Užsak.",InvoiceSVO);
+  RadioButton(h2,v+=16,1,0,"Darbo kortelės",InvoiceSVO);
+  CheckBox(h2,v+=30,0,"Tekstas iš paslaugų užsakymo",SVOText);
+  */
+  CheckBox(h2,v+=16,0,"Darbo kortelės objektas faktūroje",WSHeaderObjectOnSVOIV);
+  CheckBox(h2,v+=16,0,"Darbo kortelės atnaujina sandėlį",WSUpdStockFlag);
+	CheckBox(h2,v+=16,0,"Leisti tik 1 pagrindinę prekę paslaugos užsakymui",AllowOneMainItem);
+	EditField(h2+50,v+=20,50,"Pasl. Obj. Tipas",Normal,ObjTypePrefix,false,OTSClass);// Edit ************************** BPI Ukraine - KramarAlexandr - 05, 08 02 2019 y. at 9:30:57 AM
+  CheckBox(h2,v+=20,0,"Automatiškai kurti paslaugų užsakymams objektų tipus",OutoObjCreate);// Edit ************************** BPI Ukraine - KramarAlexandr - 05, 08 02 2019 y. at 9:32:22 AM
+
+  EndWindow;
+end;
