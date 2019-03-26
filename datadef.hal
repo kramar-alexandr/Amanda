@@ -204,7 +204,7 @@ RecordBegin(SwedbankImportVc,-,"");// Edit ************************** BPI Ukrain
   RecordField(NextComment,M4Str,60,0);
   RecordField(NrOfDays,M4Long,0,0);
   RecordField(Person,M4Code,10,UserVc);
-  RecordField(NrOfHours,M4Long,0,0);
+  RecordField(NrOfHours,M4Qty,0,0);//8.4 -> 8.5 m4long to m4qty
   RecordField(NewResState,M4Code,5,0);
   RecordField(TodoFlag,M4Int,0,0);
   RecordField(CopyRLink,M4Int,0,0);
